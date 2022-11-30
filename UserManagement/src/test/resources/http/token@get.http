@@ -1,0 +1,4 @@
+GET http://localhost:80/users/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjEsImV4cCI6MTY2OTc5NTgyMH0.OeVqYc47o7SbDcCeOaxR2NGQRVHJRhTmHOqg79WjTCQ
+Accept: application/json
+
+###
