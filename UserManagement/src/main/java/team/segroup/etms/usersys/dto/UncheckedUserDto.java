@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UncheckedUserDto {
-    private int uid;
+    private String nid;
     private String name;
     private String password;
     private String email;

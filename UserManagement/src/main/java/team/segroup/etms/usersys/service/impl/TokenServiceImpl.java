@@ -20,22 +20,22 @@ public class TokenServiceImpl implements TokenService {
     private final JWTVerifier verifier = JWT.require(algorithm).build();
 
     @Override
-    public String generateToken(int uid) {
+    public String generateToken(String nid) {
         return JWT.create()
             .withHeader(new HashMap<>())
-            .withClaim("uid", uid)
+            .withClaim("uid", nid)
             .withExpiresAt(Instant.now().plusSeconds(EXPIRY))
             .sign(algorithm);
     }
 
     @Override
-    public int verifyToken(String token) {
+    public String verifyToken(String token) {
         DecodedJWT decodedJWT;
         try {
             decodedJWT = verifier.verify(token);
         }catch (JWTVerificationException e){
-            return -1;
+            return null;
         }
-        return decodedJWT.getClaim("uid").asInt();
+        return decodedJWT.getClaim("uid").asString();
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.segroup.etms.usersys.dto.UncheckedUserDto;
+import team.segroup.etms.usersys.dto.UserDto;
 import team.segroup.etms.usersys.entity.UncheckedUser;
 import team.segroup.etms.usersys.entity.User;
 import team.segroup.etms.usersys.service.UserService;
@@ -13,20 +14,20 @@ import team.segroup.etms.usersys.service.UserService;
 public class UserController {
     private UserService userService;
 
-    @GetMapping("/{uid}")
-    public ResponseEntity<User> retrieveUser(@PathVariable("uid") int uid) {
-        User user = userService.retrieveUser(uid);
+    @GetMapping("/{nid}")
+    public ResponseEntity<UserDto> retrieveUser(@PathVariable("nid") String nid) {
+        User user = userService.retrieveUser(nid);
         if (user == null) {
             return ResponseEntity.notFound().build();
         } else {
             user.setPassword("");
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(new UserDto(user));
         }
     }
 
-    @PostMapping("/{uid}/validate")
-    public ResponseEntity<User> validateUser(@PathVariable("uid") int uid) {
-        boolean valid = userService.validateUser(uid, true);
+    @PostMapping("/{nid}/validate")
+    public ResponseEntity<User> validateUser(@PathVariable("nid") String nid) {
+        boolean valid = userService.validateUser(nid);
         if (valid) {
             return ResponseEntity.ok().build();
         } else {
@@ -34,9 +35,9 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/{uid}/activate")
-    public ResponseEntity<User> activateUser(@PathVariable("uid") int uid) {
-        boolean valid = userService.activateUser(uid);
+    @PatchMapping("/{nid}/activate")
+    public ResponseEntity<User> activateUser(@PathVariable("nid") String nid) {
+        boolean valid = userService.activateUser(nid);
         if (valid) {
             return ResponseEntity.ok().build();
         } else {

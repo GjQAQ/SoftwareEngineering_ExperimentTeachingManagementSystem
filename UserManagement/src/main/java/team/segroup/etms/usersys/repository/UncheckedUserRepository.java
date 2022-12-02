@@ -7,5 +7,8 @@ import java.util.Optional;
 
 public interface UncheckedUserRepository extends CrudRepository<UncheckedUser,Integer> {
     Optional<UncheckedUser> findByUid(int uid);
+    Optional<UncheckedUser> findByNid(String nid);
+
     void deleteByUid(int uid);
+    void deleteByNid(String nid);
 }

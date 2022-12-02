@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
-    Optional<User> findByUidAndPassword(int uid, String password);
+    Optional<User> findByNidAndPassword(String nid, String password);
     Optional<User> findByUid(int uid);
+    Optional<User> findByNid(String nid);
+
     void deleteByUid(int uid);
+    void deleteByNid(String nid);
 }

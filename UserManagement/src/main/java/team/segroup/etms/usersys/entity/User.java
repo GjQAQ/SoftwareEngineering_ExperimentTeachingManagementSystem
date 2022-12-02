@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 public class User {
     public User(UncheckedUser from, boolean active) {
         this.uid = from.getUid();
+        this.nid = from.getNid();
         this.username = from.getUsername();
         this.password = from.getPassword();
         this.email = from.getEmail();
@@ -22,7 +24,9 @@ public class User {
     }
 
     @Id
-    private int uid;
+    @GeneratedValue
+    private Integer uid;
+    private String nid;
     private String username;
     private String password;
     private String email;

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -13,7 +14,9 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class UncheckedUser {
     @Id
-    private int uid;
+    @GeneratedValue
+    private Integer uid;
+    private String nid;
     private String username;
     private String password;
     private String email;

@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean verify(int uid, String password) {
+    public boolean verify(String nid, String password) {
         password = hash(password);
-        Optional<User> user = userRepository.findByUidAndPassword(uid, password);
+        Optional<User> user = userRepository.findByNidAndPassword(nid, password);
         return user.isPresent();
     }
 
@@ -44,13 +44,14 @@ public class UserServiceImpl implements UserService {
     public UncheckedUser register(UncheckedUserDto userDto) {
         // TODO:verify unchecked user
 
-        Optional<UncheckedUser> origin = uncUserRepository.findByUid(userDto.getUid());
+        Optional<UncheckedUser> origin = uncUserRepository.findByNid(userDto.getNid());
         if (origin.isPresent()) {
             return null;
         }
 
         UncheckedUser uncheckedUser = new UncheckedUser(
-            userDto.getUid(),
+            null,
+            userDto.getNid(),
             userDto.getName(),
             hash(userDto.getPassword()),
             userDto.getEmail()
@@ -60,25 +61,26 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean validateUser(int uid, boolean valid) {
-        Optional<UncheckedUser> newUser = uncUserRepository.findByUid(uid);
+    public boolean validateUser(String nid) {
+        Optional<UncheckedUser> newUser = uncUserRepository.findByNid(nid);
         if (!newUser.isPresent()) {
-            logger.warn("Unchecked user with uid=" + uid + " does not exist but was tried to validate.");
+            logger.warn("Unchecked user with nid=" + nid + " does not exist but was tried to validate.");
             return false;
         }
 
-        uncUserRepository.deleteByUid(uid);
+        uncUserRepository.deleteByNid(nid);
         User user = new User(newUser.get(), false);
+        user.setUid(null);
         userRepository.save(user);
         return true;
     }
 
     @Override
-    public boolean activateUser(int uid) {
+    public boolean activateUser(String nid) {
         // TODO:improve
-        Optional<User> userOptional = userRepository.findByUid(uid);
+        Optional<User> userOptional = userRepository.findByNid(nid);
         if (!userOptional.isPresent()) {
-            logger.warn("User with uid=" + uid + " does not exist but was tried to activate.");
+            logger.warn("User with nid=" + nid + " does not exist but was tried to activate.");
             return false;
         }
 
@@ -89,10 +91,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User retrieveUser(int uid) {
-        Optional<User> user = userRepository.findByUid(uid);
+    public User retrieveUser(String nid) {
+        Optional<User> user = userRepository.findByNid(nid);
         if (!user.isPresent()) {
-            logger.warn("User with uid=" + uid + " does not exist but was retrieved.");
+            logger.warn("User with nid=" + nid + " does not exist but was retrieved.");
             return null;
         }
 

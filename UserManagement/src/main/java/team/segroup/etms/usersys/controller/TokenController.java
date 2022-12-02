@@ -16,24 +16,24 @@ public class TokenController {
 
     @PostMapping
     public ResponseEntity<String> generateToken(
-        @RequestParam("uid") int uid,
+        @RequestParam("nid") String nid,
         @RequestParam("password") String password
     ) {
-        if (!userService.verify(uid, password)) {
+        if (!userService.verify(nid, password)) {
             return ResponseEntity.badRequest().build();
         }
 
-        String token = tokenService.generateToken(uid);
+        String token = tokenService.generateToken(nid);
         return ResponseEntity.ok(token);
     }
 
     @GetMapping
-    public ResponseEntity<Integer> verifyToken(@RequestParam("token") String token) {
-        int uid = tokenService.verifyToken(token);
-        if (uid == -1) {
+    public ResponseEntity<String> verifyToken(@RequestParam("token") String token) {
+        String nid = tokenService.verifyToken(token);
+        if (nid == null) {
             return ResponseEntity.badRequest().build();
         } else {
-            return ResponseEntity.ok(uid);
+            return ResponseEntity.ok(nid);
         }
     }
 
