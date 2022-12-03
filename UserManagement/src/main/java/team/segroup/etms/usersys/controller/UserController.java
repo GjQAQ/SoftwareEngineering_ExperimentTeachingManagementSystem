@@ -25,12 +25,36 @@ public class UserController {
         }
     }
 
+    // note: accept Content-Type:application/json only
+    @PutMapping("/{nid}")
+    public ResponseEntity<UserDto> updateUser(
+        @PathVariable("nid") String nid,
+        @RequestBody UserDto newUser) {
+        boolean result = userService.updateUser(newUser);
+        if (result) {
+            return ResponseEntity.ok(newUser);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{nid}")
+    public ResponseEntity<UserDto> removeUser(@PathVariable("nid") String nid) {
+        User user = userService.retrieveUser(nid);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        userService.removeUser(nid);
+        return ResponseEntity.ok(new UserDto(user));
+    }
+
     // TODO: return value
     @PostMapping("/{nid}/validate")
-    public ResponseEntity<User> validateUser(@PathVariable("nid") String nid) {
-        boolean valid = userService.validateUser(nid, true);
-        if (valid) {
-            return ResponseEntity.ok().build();
+    public ResponseEntity<UserDto> validateUser(@PathVariable("nid") String nid) {
+        User validUser = userService.validateUser(nid, true);
+        if (validUser != null) {
+            return ResponseEntity.ok(new UserDto(validUser));
         } else {
             return ResponseEntity.badRequest().build();
         }
@@ -38,12 +62,8 @@ public class UserController {
 
     @DeleteMapping("/{nid}/validate")
     public ResponseEntity<String> invalidateUser(@PathVariable("nid") String nid) {
-        boolean result = userService.validateUser(nid, false);
-        if (result) {
-            return ResponseEntity.ok("ok");
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        userService.validateUser(nid, false);
+        return ResponseEntity.ok("ok");
     }
 
     @PatchMapping("/{nid}/activate")

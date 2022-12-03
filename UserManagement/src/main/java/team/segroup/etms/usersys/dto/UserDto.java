@@ -9,6 +9,11 @@ import team.segroup.etms.usersys.entity.User;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+    private String nid;
+    private String name;
+    private String email;
+    private boolean active;
+
     public UserDto(User user) {
         this.nid = user.getNid();
         this.name = user.getUsername();
@@ -16,8 +21,16 @@ public class UserDto {
         this.active = user.isActive();
     }
 
-    private String nid;
-    private String name;
-    private String email;
-    private boolean active;
+    public User toUser() {
+        User user = new User();
+        coverUser(user);
+        return user;
+    }
+
+    public void coverUser(User user) {
+        user.setNid(nid);
+        user.setUsername(name);
+        user.setEmail(email);
+        user.setActive(active);
+    }
 }

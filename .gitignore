@@ -1,4 +1,5 @@
 etms-jwt/
 .idea
-UserManagement/UserManagement.iml
 UserManagement/target
+
+*.iml

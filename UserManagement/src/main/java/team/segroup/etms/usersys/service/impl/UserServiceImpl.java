@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.segroup.etms.usersys.dto.UncheckedUserDto;
+import team.segroup.etms.usersys.dto.UserDto;
 import team.segroup.etms.usersys.entity.UncheckedUser;
 import team.segroup.etms.usersys.entity.User;
 import team.segroup.etms.usersys.repository.UncheckedUserRepository;
@@ -61,11 +62,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean validateUser(String nid, boolean valid) {
+    public User validateUser(String nid, boolean valid) {
         Optional<UncheckedUser> newUser = uncUserRepository.findByNid(nid);
         if (!newUser.isPresent()) {
             logger.warn("Unchecked user with nid=" + nid + " does not exist but was tried to validate.");
-            return false;
+            return null;
         }
 
         uncUserRepository.deleteByNid(nid);
@@ -73,8 +74,10 @@ public class UserServiceImpl implements UserService {
             User user = new User(newUser.get(), false);
             user.setUid(null);
             userRepository.save(user);
+            return user;
+        } else {
+            return null;
         }
-        return true;
     }
 
     @Override
@@ -101,6 +104,33 @@ public class UserServiceImpl implements UserService {
         }
 
         return user.get();
+    }
+
+    @Override
+    public boolean removeUser(String nid) {
+        Optional<User> user = userRepository.findByNid(nid);
+        if (!user.isPresent()) {
+            logger.warn("User with nid=" + nid + " does not exist but was removed.");
+            return false;
+        }
+
+        userRepository.deleteByNid(nid);
+        return true;
+    }
+
+    @Override
+    public boolean updateUser(UserDto userDto) {
+        // TODO:optimize
+        String nid = userDto.getNid();
+        Optional<User> optionalUser = userRepository.findByNid(nid);
+        if (!optionalUser.isPresent()) {
+            return false;
+        }
+
+        User user = optionalUser.get();
+        userDto.coverUser(user);
+        userRepository.save(user);
+        return true;
     }
 
     @Autowired
