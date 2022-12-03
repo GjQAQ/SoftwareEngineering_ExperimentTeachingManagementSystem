@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public boolean validateUser(String nid) {
+    public boolean validateUser(String nid, boolean valid) {
         Optional<UncheckedUser> newUser = uncUserRepository.findByNid(nid);
         if (!newUser.isPresent()) {
             logger.warn("Unchecked user with nid=" + nid + " does not exist but was tried to validate.");
@@ -69,9 +69,11 @@ public class UserServiceImpl implements UserService {
         }
 
         uncUserRepository.deleteByNid(nid);
-        User user = new User(newUser.get(), false);
-        user.setUid(null);
-        userRepository.save(user);
+        if (valid) {
+            User user = new User(newUser.get(), false);
+            user.setUid(null);
+            userRepository.save(user);
+        }
         return true;
     }
 

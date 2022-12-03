@@ -25,11 +25,22 @@ public class UserController {
         }
     }
 
+    // TODO: return value
     @PostMapping("/{nid}/validate")
     public ResponseEntity<User> validateUser(@PathVariable("nid") String nid) {
-        boolean valid = userService.validateUser(nid);
+        boolean valid = userService.validateUser(nid, true);
         if (valid) {
             return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{nid}/validate")
+    public ResponseEntity<String> invalidateUser(@PathVariable("nid") String nid) {
+        boolean result = userService.validateUser(nid, false);
+        if (result) {
+            return ResponseEntity.ok("ok");
         } else {
             return ResponseEntity.badRequest().build();
         }

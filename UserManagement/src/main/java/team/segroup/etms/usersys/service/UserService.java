@@ -21,11 +21,12 @@ public interface UserService {
     UncheckedUser register(UncheckedUserDto userDto);
 
     /**
-     * 查验通过某个用户。
+     * 查验通过/不通过某个用户。
      * @param nid 学号
+     * @param valid 是否通过
      * @return 是否成功
      */
-    boolean validateUser(String nid);
+    boolean validateUser(String nid, boolean valid);
 
     /**
      * 激活用户。
