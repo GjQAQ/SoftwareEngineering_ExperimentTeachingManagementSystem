@@ -5,6 +5,9 @@ import team.segroup.etms.usersys.dto.UserDto;
 import team.segroup.etms.usersys.entity.UncheckedUser;
 import team.segroup.etms.usersys.entity.User;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 public interface UserService {
     /**
      * 验证传入的学号密码组合是否正确。
@@ -20,6 +23,14 @@ public interface UserService {
      * @return 新用户实例。失败则返回null。
      */
     UncheckedUser register(UncheckedUserDto userDto);
+
+    /**
+     * 批量注册。
+     * @param users 用户信息的Iterable
+     * @param checked 所添加用户是否已查验
+     * @return 两个nid的列表，第一个是成功列表，第二个是未成功列表
+     */
+    List<String>[] registerBatch(Stream<UncheckedUserDto> users, boolean checked);
 
     /**
      * 查验通过/不通过某个用户。
@@ -50,5 +61,10 @@ public interface UserService {
      */
     boolean removeUser(String nid);
 
+    /**
+     * 更新用户信息。
+     * @param userDto 新的用户信息
+     * @return 是否成功
+     */
     boolean updateUser(UserDto userDto);
 }

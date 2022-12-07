@@ -13,10 +13,14 @@ import team.segroup.etms.usersys.repository.UncheckedUserRepository;
 import team.segroup.etms.usersys.repository.UserRepository;
 import team.segroup.etms.usersys.service.UserService;
 
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -58,6 +62,35 @@ public class UserServiceImpl implements UserService {
             userDto.getEmail()
         );
         return uncUserRepository.save(uncheckedUser);
+    }
+
+    @Transactional
+    @Override
+    public List<String>[] registerBatch(
+        Stream<UncheckedUserDto> users,
+        boolean checked
+    ) {
+        List<String> ok = new LinkedList<>();
+        List<String> fail = new LinkedList<>();
+        users.forEach(newUser -> {
+            UncheckedUser registered = register(newUser);
+            if (registered == null) {
+                fail.add(newUser.getNid());
+            } else {
+                ok.add(registered.getNid());
+            }
+        });
+
+        List<String>[] res = (List<String>[]) Array.newInstance(List.class, 2);
+        res[0] = ok;
+        res[1] = fail;
+
+        if (checked) {
+            for (String nid : ok) {
+                validateUser(nid, true);
+            }
+        }
+        return res;
     }
 
     @Transactional

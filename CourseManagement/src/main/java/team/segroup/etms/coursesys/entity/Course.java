@@ -13,12 +13,12 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Course {
     @Id
-    @GeneratedValue
-    private int cid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer cid;
     private String cname;
     private String code;
-    private Date start_time;
-    private Date end_time;
+    private Date startTime;
+    private Date endTime;
     @Enumerated(EnumType.STRING)
     private Status status;
 

@@ -1,0 +1,10 @@
+GET http://120.78.65.145/user/actuator/info
+Accept: application/json
+
+###
+POST http://120.78.65.145/user/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000000&password=hello
+
+###
