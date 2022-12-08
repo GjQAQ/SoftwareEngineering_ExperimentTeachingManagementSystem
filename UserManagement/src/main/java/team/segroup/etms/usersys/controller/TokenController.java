@@ -3,6 +3,7 @@ package team.segroup.etms.usersys.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import team.segroup.etms.usersys.service.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
 import team.segroup.etms.usersys.service.UserService;
 
@@ -27,12 +28,12 @@ public class TokenController {
     }
 
     @GetMapping
-    public ResponseEntity<String> verifyToken(@RequestParam("token") String token) {
-        String nid = tokenService.verifyToken(token);
-        if (nid == null) {
+    public ResponseEntity<TokenInfo> verifyToken(@RequestParam("token") String token) {
+        TokenInfo tokenInfo = tokenService.verifyToken(token);
+        if (tokenInfo == null) {
             return ResponseEntity.badRequest().build();
         } else {
-            return ResponseEntity.ok(nid);
+            return ResponseEntity.ok(tokenInfo);
         }
     }
 

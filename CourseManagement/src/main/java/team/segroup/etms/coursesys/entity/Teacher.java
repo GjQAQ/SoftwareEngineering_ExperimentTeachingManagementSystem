@@ -13,9 +13,16 @@ import javax.persistence.*;
 public class Teacher {
     @Id
     @GeneratedValue
-    private int cid;
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cid")
+    private Course course;
+
     private String nid;
+
     private String name;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -25,6 +32,6 @@ public class Teacher {
         CHARGING_TEACHER("RT"),
         TEACHER("T");
 
-        private String rep;
+        private final String repr;
     }
 }

@@ -13,5 +13,5 @@ public interface TokenService {
      * @param token token
      * @return 学号字符串。如果token无效，返回null
      */
-    String verifyToken(String token);
+    TokenInfo verifyToken(String token);
 }

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import team.segroup.etms.coursesys.dto.CourseDto;
 import team.segroup.etms.coursesys.dto.StudentDto;
 import team.segroup.etms.coursesys.dto.TeacherDto;
-import team.segroup.etms.coursesys.entity.Course;
-import team.segroup.etms.coursesys.entity.Student;
 import team.segroup.etms.coursesys.entity.Teacher;
 
 import java.util.List;

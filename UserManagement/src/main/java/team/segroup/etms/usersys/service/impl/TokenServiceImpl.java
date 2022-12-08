@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.stereotype.Service;
+import team.segroup.etms.usersys.service.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
 
 import java.time.Instant;
@@ -23,19 +24,22 @@ public class TokenServiceImpl implements TokenService {
     public String generateToken(String nid) {
         return JWT.create()
             .withHeader(new HashMap<>())
-            .withClaim("uid", nid)
+            .withClaim("nid", nid)
             .withExpiresAt(Instant.now().plusSeconds(EXPIRY))
             .sign(algorithm);
     }
 
     @Override
-    public String verifyToken(String token) {
+    public TokenInfo verifyToken(String token) {
         DecodedJWT decodedJWT;
         try {
             decodedJWT = verifier.verify(token);
-        }catch (JWTVerificationException e){
+        } catch (JWTVerificationException e) {
             return null;
         }
-        return decodedJWT.getClaim("uid").asString();
+        return new TokenInfo(
+            decodedJWT.getExpiresAtAsInstant(),
+            decodedJWT.getClaim("nid").asString()
+        );
     }
 }

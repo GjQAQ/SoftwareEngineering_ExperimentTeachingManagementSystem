@@ -28,6 +28,6 @@ public class Course {
         GOING_ON("Y"),
         TERMINATED("C");
 
-        private final String rep;
+        private final String repr;
     }
 }

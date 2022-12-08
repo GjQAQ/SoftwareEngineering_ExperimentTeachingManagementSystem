@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -15,8 +13,15 @@ import javax.persistence.Id;
 public class Student {
     @Id
     @GeneratedValue
-    private int cid;
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cid")
+    private Course course;
+
     private String nid;
+
     private String name;
+
     private float score;
 }
