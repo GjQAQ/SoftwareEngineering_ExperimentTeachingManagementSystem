@@ -12,8 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Teacher {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cid")
@@ -28,10 +28,6 @@ public class Teacher {
 
     @AllArgsConstructor
     public enum Role {
-        ASSISTANT("TA"),
-        CHARGING_TEACHER("RT"),
-        TEACHER("T");
-
-        private final String repr;
+        ASSISTANT, CHARGING_TEACHER, TEACHER
     }
 }

@@ -17,6 +17,7 @@ public class CourseDto {
     private LocalDate startTime;
     private LocalDate endTime;
     private Course.Status status;
+    private String description;
 
     public CourseDto(Course course) {
         this.name = course.getCname();
@@ -24,6 +25,7 @@ public class CourseDto {
         this.startTime = course.getStartTime().toLocalDate();
         this.endTime = course.getEndTime().toLocalDate();
         this.status = course.getStatus();
+        this.description=course.getDescription();
     }
 
     public Course toCourse() {
@@ -33,7 +35,8 @@ public class CourseDto {
             getCode(),
             Date.valueOf(getStartTime()),
             Date.valueOf(getEndTime()),
-            getStatus()
+            getStatus(),
+            getDescription()
         );
     }
 }

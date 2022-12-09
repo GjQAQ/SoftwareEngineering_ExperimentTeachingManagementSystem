@@ -28,7 +28,7 @@ public interface CourseService {
 
     boolean removeStudent(String courseCode, String nid);
 
-    TeacherDto addTeacher(String courseCode, TeacherDto teacherDto, Teacher.Role role);
+    TeacherDto addTeacher(String courseCode, TeacherDto teacherDto);
 
     TeacherDto changeRole(String courseCode, String nid, Teacher.Role newRole);
 

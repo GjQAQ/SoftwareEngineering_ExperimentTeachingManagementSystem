@@ -12,8 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Student {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cid")

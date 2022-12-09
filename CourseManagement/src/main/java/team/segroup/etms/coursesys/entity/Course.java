@@ -15,19 +15,22 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cid;
+
     private String cname;
+
     private String code;
+
     private Date startTime;
+
     private Date endTime;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private String description;
+
     @AllArgsConstructor
     public enum Status {
-        NOT_STARTED("N"),
-        GOING_ON("Y"),
-        TERMINATED("C");
-
-        private final String repr;
+        NOT_STARTED, GOING_ON, TERMINATED
     }
 }
