@@ -19,7 +19,7 @@ public class CourseController {
         return defaultBadRequest(course != null, course);
     }
 
-    @PostMapping("/{code}/delete")
+    @PostMapping("/{code}/close")
     public ResponseEntity<String> closeCourse(@PathVariable("code") String code) {
         boolean result = courseService.closeCourse(code);
         return defaultBadRequest(result, "ok");

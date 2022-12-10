@@ -5,9 +5,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.segroup.etms.usersys.service.TokenInfo;
+import team.segroup.etms.usersys.entity.User;
+import team.segroup.etms.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
+import team.segroup.etms.usersys.service.UserService;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -20,8 +23,11 @@ public class TokenServiceImpl implements TokenService {
     private final Algorithm algorithm = Algorithm.HMAC256(SECRET);
     private final JWTVerifier verifier = JWT.require(algorithm).build();
 
+    private UserService userService;
+
     @Override
     public String generateToken(String nid) {
+        //TODO:验证nid
         return JWT.create()
             .withHeader(new HashMap<>())
             .withClaim("nid", nid)
@@ -37,9 +43,18 @@ public class TokenServiceImpl implements TokenService {
         } catch (JWTVerificationException e) {
             return null;
         }
+
+        String nid = decodedJWT.getClaim("nid").asString();
+        User user = userService.retrieveUser(nid);
         return new TokenInfo(
             decodedJWT.getExpiresAtAsInstant(),
-            decodedJWT.getClaim("nid").asString()
+            nid,
+            user.isAdmin()
         );
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

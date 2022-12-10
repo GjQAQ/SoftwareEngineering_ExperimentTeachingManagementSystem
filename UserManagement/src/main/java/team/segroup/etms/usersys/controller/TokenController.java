@@ -3,7 +3,7 @@ package team.segroup.etms.usersys.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import team.segroup.etms.usersys.service.TokenInfo;
+import team.segroup.etms.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
 import team.segroup.etms.usersys.service.UserService;
 

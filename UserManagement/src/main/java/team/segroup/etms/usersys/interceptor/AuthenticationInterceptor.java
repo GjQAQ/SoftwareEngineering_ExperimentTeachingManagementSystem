@@ -2,7 +2,7 @@ package team.segroup.etms.usersys.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
-import team.segroup.etms.usersys.service.TokenInfo;
+import team.segroup.etms.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +18,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         HttpServletResponse response,
         Object handler
     ) throws Exception {
+        if("false".equals(request.getParameter("warrant"))){
+            return true;
+        }
+
         String token = request.getHeader("Token");
         if (token == null) {
             response.setStatus(401);

@@ -89,7 +89,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         Optional<Course> courseOpt = courseRepository.findByCode(courseCode);
-        if(!courseOpt.isPresent()){
+        if (!courseOpt.isPresent()) {
             return null;
         }
 
@@ -130,6 +130,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public StudentDto findStudentByNid(String courseCode, String nid) {
+        Optional<Student> studentOpt = studentRepository.findByNidAndCourseCode(nid, courseCode);
+        return studentOpt.map(StudentDto::new).orElse(null);
+    }
+
+    @Override
     public TeacherDto addTeacher(String courseCode, TeacherDto teacherDto) {
         if (teacherRepository.findByNidAndCourseCode(
             teacherDto.getNid(), courseCode
@@ -138,7 +144,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         Optional<Course> courseOpt = courseRepository.findByCode(courseCode);
-        if(!courseOpt.isPresent()){
+        if (!courseOpt.isPresent()) {
             return null;
         }
 
@@ -168,6 +174,12 @@ public class CourseServiceImpl implements CourseService {
             teacherRepository.delete(teacherOpt.get());
             return true;
         }
+    }
+
+    @Override
+    public TeacherDto findTeacherByNid(String courseCode, String nid) {
+        Optional<Teacher> teacherOpt = teacherRepository.findByNidAndCourseCode(nid, courseCode);
+        return teacherOpt.map(TeacherDto::new).orElse(null);
     }
 
     @Autowired

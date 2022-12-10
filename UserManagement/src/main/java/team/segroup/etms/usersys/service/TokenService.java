@@ -1,5 +1,7 @@
 package team.segroup.etms.usersys.service;
 
+import team.segroup.etms.TokenInfo;
+
 public interface TokenService {
     /**
      * 根据给定学号生成token。

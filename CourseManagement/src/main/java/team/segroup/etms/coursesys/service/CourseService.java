@@ -28,9 +28,13 @@ public interface CourseService {
 
     boolean removeStudent(String courseCode, String nid);
 
+    StudentDto findStudentByNid(String courseCode, String nid);
+
     TeacherDto addTeacher(String courseCode, TeacherDto teacherDto);
 
     TeacherDto changeRole(String courseCode, String nid, Teacher.Role newRole);
 
     boolean removeTeacher(String courseCode, String nid);
+
+    TeacherDto findTeacherByNid(String courseCode, String nid);
 }

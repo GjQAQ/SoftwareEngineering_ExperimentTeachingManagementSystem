@@ -19,6 +19,15 @@ import static team.segroup.etms.coursesys.utils.ControllerUtils.*;
 public class StudentController {
     private CourseService courseService;
 
+    @GetMapping("/{code}/{nid}")
+    public ResponseEntity<StudentDto> findStudent(
+        @PathVariable("code") String code,
+        @PathVariable("nid") String nid
+    ) {
+        StudentDto student = courseService.findStudentByNid(code, nid);
+        return defaultResponse(student != null, student, ResponseEntity.status(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping("/{code}")
     public ResponseEntity<StudentDto> addStudent(
         @PathVariable("code") String code,
@@ -39,9 +48,9 @@ public class StudentController {
 
     @DeleteMapping("/{code}/{nid}")
     public ResponseEntity<String> removeStudent(
-        @PathVariable("code")String code,
-        @PathVariable("nid")String nid
-    ){
+        @PathVariable("code") String code,
+        @PathVariable("nid") String nid
+    ) {
         boolean result = courseService.removeStudent(code, nid);
         return defaultBadRequest(result, "ok");
     }

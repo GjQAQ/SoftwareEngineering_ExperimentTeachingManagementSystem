@@ -21,6 +21,7 @@ public class User {
         this.password = from.getPassword();
         this.email = from.getEmail();
         this.active = active;
+        this.admin = false;
     }
 
     @Id
@@ -31,4 +32,5 @@ public class User {
     private String password;
     private String email;
     private boolean active;
+    private boolean admin;
 }

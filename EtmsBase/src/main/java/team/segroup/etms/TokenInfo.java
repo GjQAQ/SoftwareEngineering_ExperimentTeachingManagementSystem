@@ -1,4 +1,4 @@
-package team.segroup.etms.usersys.service;
+package team.segroup.etms;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,4 +12,5 @@ import java.time.Instant;
 public class TokenInfo {
     private Instant expiresAt;
     private String nid;
+    private boolean admin;
 }

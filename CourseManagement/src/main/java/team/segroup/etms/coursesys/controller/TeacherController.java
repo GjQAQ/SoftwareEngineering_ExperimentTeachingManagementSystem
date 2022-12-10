@@ -1,6 +1,7 @@
 package team.segroup.etms.coursesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.segroup.etms.coursesys.dto.TeacherDto;
@@ -13,6 +14,15 @@ import static team.segroup.etms.coursesys.utils.ControllerUtils.*;
 @RequestMapping("/teachers")
 public class TeacherController {
     private CourseService courseService;
+
+    @GetMapping("/{code}/{nid}")
+    public ResponseEntity<TeacherDto> findTeacher(
+        @PathVariable("code") String code,
+        @PathVariable("nid") String nid
+    ) {
+        TeacherDto teacher = courseService.findTeacherByNid(code, nid);
+        return defaultResponse(teacher != null, teacher, ResponseEntity.status(HttpStatus.NOT_FOUND));
+    }
 
     @PostMapping("/{code}")
     public ResponseEntity<TeacherDto> addTeacher(
