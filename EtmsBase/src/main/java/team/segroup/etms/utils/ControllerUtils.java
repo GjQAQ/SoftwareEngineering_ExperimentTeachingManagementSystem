@@ -1,4 +1,4 @@
-package team.segroup.etms.coursesys.utils;
+package team.segroup.etms.utils;
 
 import org.springframework.http.ResponseEntity;
 

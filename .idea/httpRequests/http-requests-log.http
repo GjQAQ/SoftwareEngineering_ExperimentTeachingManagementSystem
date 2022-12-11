@@ -1,0 +1,448 @@
+GET http://localhost:8082/experiment/实验1
+Token: warrant
+
+<> 2022-12-11T113029.200.json
+
+###
+
+GET http://localhost:8082/实验1
+Token: warrant
+
+<> 2022-12-11T113017.404.json
+
+###
+
+POST http://localhost:8082/experiment
+Token: warrant
+Content-Type: application/json
+
+{
+  "courseCode": "20220000",
+  "name": "实验1",
+  "description": "测试用例",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-11T112946.200.json
+
+###
+
+POST http://localhost:8082/courses
+Token: warrant
+Content-Type: application/json
+
+{
+  "courseCode": "20220000",
+  "name": "实验1",
+  "description": "测试用例",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-11T112850.404.json
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+<> 2022-12-10T081724.200.json
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+<> 2022-12-10T080835.200.json
+
+###
+
+POST http://120.78.65.145:8081/actuator/shutdown
+
+<> 2022-12-10T080405.200.json
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+<> 2022-12-10T080403.200.json
+
+###
+
+GET http://120.78.65.145:8081/actuator/info
+
+<> 2022-12-10T071921.200.json
+
+###
+
+GET http://120.78.65.145:8081/actuator/info
+
+###
+
+GET http://120.78.65.145:8080/actuator/info
+
+<> 2022-12-10T071648.200.json
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+<> 2022-12-10T071419.200.json
+
+###
+
+GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDA0IiwiZXhwIjoxNjcwNjQ0MTk4fQ.3rkD7W6G6DblpW6nT5AOboEEUaxrU9_ym_MwJ-X014w
+
+<> 2022-12-10T095032.200.json
+
+###
+
+POST http://localhost:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000004&password=elsa
+
+<> 2022-12-10T094958.200.txt
+
+###
+
+POST http://localhost:8080/token/
+
+nid=2000004&password=elsa
+
+###
+
+POST http://localhost:8080/token
+
+nid=2000004&password=elsa
+
+###
+
+PATCH http://120.78.65.145:8080/users/2000004/activate
+Token: warrant
+
+###
+
+POST http://120.78.65.145:8080/users/2000004/validate
+Token: warrant
+
+<> 2022-12-10T094140.200.json
+
+###
+
+POST http://120.78.65.145:8080/users
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000004",
+  "name": "Elsa",
+  "password": "elsa",
+  "email": "elsa@sina.com"
+}
+
+<> 2022-12-10T094043.200.json
+
+###
+
+POST http://localhost:8081/teachers/20220000
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000002",
+  "name": "Carol",
+  "role": "CHARGING_TEACHER"
+}
+
+<> 2022-12-09T070944.200.json
+
+###
+
+POST http://localhost:8081/students/20220000
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000001",
+  "name": "Bob",
+  "score": 0
+}
+
+<> 2022-12-09T070614.200.json
+
+###
+
+POST http://localhost:8081/students/20220000
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000001",
+  "name": "Bob",
+  "score": 0
+}
+
+<> 2022-12-09T065949.500.json
+
+###
+
+POST http://localhost:8081/students/20220000
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000001",
+  "name": "Bob",
+  "score": 0
+}
+
+<> 2022-12-09T065849.500.json
+
+###
+
+GET http://localhost:8081/courses/20220000
+Token: warrant
+
+<> 2022-12-09T065626.200.json
+
+###
+
+GET http://localhost:8081/courses/20220001
+Token: warrant
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-08-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T064523.200.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-08-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T064115.500.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-08-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T062916.500.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-08-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T062805.500.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-08-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T062336.500.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-8-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T062111.400.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+Token: warrant
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-8-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+<> 2022-12-09T060124.400.json
+
+###
+
+POST http://localhost:8081/courses
+Content-Type: application/json
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-8-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+###
+
+POST http://localhost:8080/courses
+Content-Type: application/json
+
+{
+  "name": "高等数学",
+  "code": "20220000",
+  "startTime": "2022-8-29",
+  "endTime": "2022-12-23",
+  "status": null
+}
+
+###
+
+GET http://120.78.65.145:8080/users/2000
+
+###
+
+POST http://120.78.65.145:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000008&password=bob
+
+###
+
+GET http://120.78.65.145:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDc0Njg2fQ.zXiPNJ-kiT20chNr0mRIuUAPkUs-cW7-OcC5lVdFHvI
+
+###
+
+GET http://120.78.65.145:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDc0Njg2fQ.zXiPNJ-kiT20chNr0mRIuUAPkUs-cW7-OcC5lVdFHvI
+
+<> 2022-12-08T104528.200.json
+
+###
+
+POST http://120.78.65.145:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000001&password=bob
+
+<> 2022-12-08T104447.200.txt
+
+###
+
+POST http://120.78.65.145:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000001&password=bob
+
+<> 2022-12-08T103651.200.txt
+
+###
+
+GET http://120.78.65.145:8080/actuator/info
+
+<> 2022-12-08T103112.200.json
+
+###
+
+GET http://120.78.65.145:8080/users/2000001
+Token: warrant
+
+<> 2022-12-08T103048.200.json
+
+###
+
+GET http://120.78.65.145:8080/users/2000001
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+<> 2022-12-08T102934.200.json
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+Token: warrant
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+
+###
+
+POST http://120.78.65.145:8080/actuator/shutdown
+Token: warrant
+
+<> 2022-12-08T102518.200.json
+
+###
+
+GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
+
+<> 2022-12-08T100331.200.json
+
+###
+
+GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
+Token: warrant
+
+<> 2022-12-08T100324.200.json
+
+###
+
+GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
+Token: warrant
+
+<> 2022-12-08T100211.200.json
+
+###
+

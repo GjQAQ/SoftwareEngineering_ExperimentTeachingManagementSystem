@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.segroup.etms.coursesys.dto.CourseDto;
 import team.segroup.etms.coursesys.service.CourseService;
-import static team.segroup.etms.coursesys.utils.ControllerUtils.*;
+import static team.segroup.etms.utils.ControllerUtils.*;
 
 @RestController
 @RequestMapping("/courses")

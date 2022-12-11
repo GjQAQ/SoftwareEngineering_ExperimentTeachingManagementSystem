@@ -1,4 +1,4 @@
-package team.segroup.etms.coursesys.interceptor;
+package team.segroup.etms.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
