@@ -1,3 +1,150 @@
+GET http://localhost:8083/attendances?owner=2000002
+Token: warrant
+
+<> 2022-12-12T073537.200.json
+
+###
+
+GET http://localhost:8083/attendances?ownerNid=2000002
+Token: warrant
+
+<> 2022-12-12T073517.400.json
+
+###
+
+GET http://localhost:8083/attendances?courseCode=20220000
+Token: warrant
+
+<> 2022-12-12T073445.200.json
+
+###
+
+GET http://localhost:8083/attendances/3/absent
+Token: warrant
+
+<> 2022-12-12T073424.200.json
+
+###
+
+GET http://localhost:8083/attendances/4/2000001
+Token: warrant
+
+<> 2022-12-12T073401.200.json
+
+###
+
+PATCH http://localhost:8083/attendances/4/2000001
+Token: warrant
+
+<> 2022-12-12T073320.200.json
+
+###
+
+PATCH http://localhost:8083/attendances/3/2000001
+Token: warrant
+
+<> 2022-12-12T073157.200.json
+
+###
+
+GET http://localhost:8083/attendances/3/participants
+Token: warrant
+
+<> 2022-12-12T073118.200.json
+
+###
+
+POST http://localhost:8083/attendances?courseCode=20220000&name=test&start=2022-12-12T19:30:00&end=2022-12-12T19:35:00&owner=2000002
+Content-Type: application/json
+Token: warrant
+
+["2000001","2000005","2000006"]
+
+<> 2022-12-12T072942.200.json
+
+###
+
+POST http://localhost:8083/attendances?courseCode=20220000&name=签到1&start=2022-12-12T19:22:00&end=2022-12-12T19:23:00&owner=2000002
+Content-Type: application/json
+Token: warrant
+
+["2000001","2000005","2000006"]
+
+<> 2022-12-12T072126.200.json
+
+###
+
+POST http://localhost:8083/attendances?courseCode=20220000&name=签到1&start=2022-12-12T19:20:00&end=2022-12-12T19:21:00&owner=2000002
+Content-Type: application/json
+Token: warrant
+
+["2000001","2000005","2000006"]
+
+<> 2022-12-12T071945.500.json
+
+###
+
+PATCH http://120.78.65.145:8080/users/2000005/activate
+Token: warrant
+
+###
+
+PATCH http://120.78.65.145:8080/users/2000006/activate
+Token: warrant
+
+###
+
+POST http://120.78.65.145:8080/users/2000006/activate
+Token: warrant
+
+<> 2022-12-12T071432.405.json
+
+###
+
+POST http://120.78.65.145:8080/users/2000006/validate
+Token: warrant
+
+<> 2022-12-12T071423.200.json
+
+###
+
+POST http://120.78.65.145:8080/users/2000005/validate
+Token: warrant
+
+<> 2022-12-12T071417.200.json
+
+###
+
+POST http://120.78.65.145:8080/users
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000006",
+  "name": "George",
+  "password": "george",
+  "email": "george@qq.com"
+}
+
+<> 2022-12-12T071335.200.json
+
+###
+
+POST http://120.78.65.145:8080/users
+Content-Type: application/json
+Token: warrant
+
+{
+  "nid": "2000005",
+  "name": "Frank",
+  "password": "frank",
+  "email": "frank@qq.com"
+}
+
+<> 2022-12-12T071248.200.json
+
+###
+
 GET http://localhost:8082/experiment/实验1
 Token: warrant
 
@@ -319,130 +466,6 @@ Token: warrant
 }
 
 <> 2022-12-09T060124.400.json
-
-###
-
-POST http://localhost:8081/courses
-Content-Type: application/json
-
-{
-  "name": "高等数学",
-  "code": "20220000",
-  "startTime": "2022-8-29",
-  "endTime": "2022-12-23",
-  "status": null
-}
-
-###
-
-POST http://localhost:8080/courses
-Content-Type: application/json
-
-{
-  "name": "高等数学",
-  "code": "20220000",
-  "startTime": "2022-8-29",
-  "endTime": "2022-12-23",
-  "status": null
-}
-
-###
-
-GET http://120.78.65.145:8080/users/2000
-
-###
-
-POST http://120.78.65.145:8080/token
-Content-Type: application/x-www-form-urlencoded
-
-nid=2000008&password=bob
-
-###
-
-GET http://120.78.65.145:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDc0Njg2fQ.zXiPNJ-kiT20chNr0mRIuUAPkUs-cW7-OcC5lVdFHvI
-
-###
-
-GET http://120.78.65.145:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDc0Njg2fQ.zXiPNJ-kiT20chNr0mRIuUAPkUs-cW7-OcC5lVdFHvI
-
-<> 2022-12-08T104528.200.json
-
-###
-
-POST http://120.78.65.145:8080/token
-Content-Type: application/x-www-form-urlencoded
-
-nid=2000001&password=bob
-
-<> 2022-12-08T104447.200.txt
-
-###
-
-POST http://120.78.65.145:8080/token
-Content-Type: application/x-www-form-urlencoded
-
-nid=2000001&password=bob
-
-<> 2022-12-08T103651.200.txt
-
-###
-
-GET http://120.78.65.145:8080/actuator/info
-
-<> 2022-12-08T103112.200.json
-
-###
-
-GET http://120.78.65.145:8080/users/2000001
-Token: warrant
-
-<> 2022-12-08T103048.200.json
-
-###
-
-GET http://120.78.65.145:8080/users/2000001
-
-###
-
-POST http://120.78.65.145:8080/actuator/shutdown
-
-<> 2022-12-08T102934.200.json
-
-###
-
-POST http://120.78.65.145:8080/actuator/shutdown
-Token: warrant
-
-###
-
-POST http://120.78.65.145:8080/actuator/shutdown
-
-###
-
-POST http://120.78.65.145:8080/actuator/shutdown
-Token: warrant
-
-<> 2022-12-08T102518.200.json
-
-###
-
-GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
-
-<> 2022-12-08T100331.200.json
-
-###
-
-GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
-Token: warrant
-
-<> 2022-12-08T100324.200.json
-
-###
-
-GET http://localhost:8080/token?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuaWQiOiIyMDAwMDAxIiwiZXhwIjoxNjcwNDcyMDI3fQ.PWtmseRfRfQa1n6RJJq3uVtV-zMiU_0JJ2PEV5GgsBQ
-Token: warrant
-
-<> 2022-12-08T100211.200.json
 
 ###
 

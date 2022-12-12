@@ -10,11 +10,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
     <groupId>team.segroup</groupId>
-    <artifactId>etms-expsys</artifactId>
+    <artifactId>etms-scoresys</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
     <dependencies>
         <!--web-->
         <dependency>
@@ -73,6 +72,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

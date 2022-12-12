@@ -1,5 +1,6 @@
 package team.segroup.etms.utils;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class ControllerUtils {
@@ -7,6 +8,12 @@ public class ControllerUtils {
         boolean ok, T bodyWhenOk
     ) {
         return defaultResponse(ok, bodyWhenOk, ResponseEntity.badRequest());
+    }
+
+    public static <T> ResponseEntity<T> defaultNotFound(
+        boolean ok, T bodyWhenOk
+    ) {
+        return defaultResponse(ok, bodyWhenOk, ResponseEntity.status(HttpStatus.NOT_FOUND));
     }
 
     public static <T> ResponseEntity<T> defaultResponse(
