@@ -60,8 +60,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance result = attendanceRepository.save(attendanceDto.toAttendance());
         long duration = result.getEndTime().getTime() - result.getStartTime().getTime();
         checkers.put(new CheckAttendanceTask(
-            duration, System.currentTimeMillis(), result.getAtid()
+            duration, result.getStartTime().getTime(), result.getAtid()
         ));
+        log.info("Scheduled task set(atid=" + attendanceDto.getAtid() + ")");
+
         for (String nid : nids) {
             checkoutRepository.save(new Checkout(
                 null,
@@ -190,34 +192,20 @@ public class AttendanceServiceImpl implements AttendanceService {
         this.checkoutRepository = checkoutRepository;
     }
 
-    @AllArgsConstructor
-    private class CheckAttendanceTask implements Delayed {
-        public final long duration;
-        public final long birth;
-        public final int atid;
-
-        @Override
-        public long getDelay(TimeUnit unit) {
-            return unit.convert(
-                duration + birth - System.currentTimeMillis(),
-                TimeUnit.MILLISECONDS
-            );
-        }
-
-        @Override
-        public int compareTo(Delayed o) {
-            long dif = getDelay(TimeUnit.MILLISECONDS) - o.getDelay(TimeUnit.MILLISECONDS);
-            return (int) dif;
+    private class CheckAttendanceTask extends CheckCronTask {
+        public CheckAttendanceTask(long duration, long birth, int atid) {
+            super(duration, birth, atid);
         }
 
         public void check() {
-            List<Checkout> targets = checkoutRepository.findByAtid(atid);
+            List<Checkout> targets = checkoutRepository.findByAtid(targetId);
             for (Checkout checkout : targets) {
                 if (checkout.getStatus() == Checkout.Status.GOING_ON) {
                     checkout.setStatus(Checkout.Status.ABSENT);
                 }
             }
             checkoutRepository.saveAll(targets);
+            log.info("Scheduled task completed(atid=" + targetId + ")");
         }
     }
 }

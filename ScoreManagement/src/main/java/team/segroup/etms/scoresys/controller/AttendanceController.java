@@ -40,7 +40,7 @@ public class AttendanceController {
         @RequestParam("courseCode") String courseCode
     ) {
         List<AttendanceDto> attendances = attendanceService.findByCourseCode(courseCode);
-        return defaultNotFound(attendances != null, attendances);
+        return defaultNotFound(attendances.size() > 0, attendances);
     }
 
     @GetMapping(params = "owner")
@@ -48,7 +48,7 @@ public class AttendanceController {
         @RequestParam("owner") String ownerNid
     ) {
         List<AttendanceDto> attendances = attendanceService.findByOwner(ownerNid);
-        return defaultNotFound(attendances != null, attendances);
+        return defaultNotFound(attendances.size() > 0, attendances);
     }
 
     @GetMapping("/{atid}/success")

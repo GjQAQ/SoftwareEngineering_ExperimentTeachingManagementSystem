@@ -33,5 +33,5 @@ public class Submission {
 
     private int score;
 
-    public enum Status {SUCCESS, LATE, IN_PROGRESS, ABSENT}
+    public enum Status {SUCCESS, GOING_ON, ABSENT}
 }
