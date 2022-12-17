@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verify(String nid, String password) {
-        password = hash(password);
+        password = preProcess(password);
         Optional<User> user = userRepository.findByNidAndPassword(nid, password);
         return user.isPresent();
     }
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
             null,
             userDto.getNid(),
             userDto.getName(),
-            hash(userDto.getPassword()),
+            preProcess(userDto.getPassword()),
             userDto.getEmail()
         );
         return uncUserRepository.save(uncheckedUser);
@@ -176,7 +176,11 @@ public class UserServiceImpl implements UserService {
         this.uncUserRepository = uncUserRepository;
     }
 
-    private String hash(String input) {
+    private String preProcess(String input) {
+        return input;
+    }
+
+    private String sha1Hash(String input) {
         byte[] digest = sha1.digest(input.getBytes(StandardCharsets.UTF_8));
         StringBuilder builder = new StringBuilder();
         for (byte b : digest) {

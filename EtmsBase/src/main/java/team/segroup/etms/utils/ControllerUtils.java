@@ -16,6 +16,12 @@ public class ControllerUtils {
         return defaultResponse(ok, bodyWhenOk, ResponseEntity.status(HttpStatus.NOT_FOUND));
     }
 
+    public static <T> ResponseEntity<T> defaultForbidden(
+        boolean ok, T bodyWhenOk
+    ) {
+        return defaultResponse(ok, bodyWhenOk, ResponseEntity.status(HttpStatus.FORBIDDEN));
+    }
+
     public static <T> ResponseEntity<T> defaultResponse(
         boolean ok, T bodyWhenOk, ResponseEntity.BodyBuilder builder
     ) {

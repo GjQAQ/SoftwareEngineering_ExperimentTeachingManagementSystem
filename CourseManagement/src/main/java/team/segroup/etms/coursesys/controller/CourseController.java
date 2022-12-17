@@ -5,7 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.segroup.etms.coursesys.dto.CourseDto;
+import team.segroup.etms.coursesys.dto.StudentDto;
+import team.segroup.etms.coursesys.dto.TeacherDto;
 import team.segroup.etms.coursesys.service.CourseService;
+
 import static team.segroup.etms.utils.ControllerUtils.*;
 
 @RestController
@@ -34,7 +37,18 @@ public class CourseController {
     @GetMapping("/{code}")
     public ResponseEntity<CourseDto> findCourseByCode(@PathVariable("code") String code) {
         CourseDto course = courseService.findCourseByCode(code);
-        return defaultResponse(course!=null, course, ResponseEntity.status(HttpStatus.NOT_FOUND));
+        return defaultResponse(course != null, course, ResponseEntity.status(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{code}/{nid}")
+    public ResponseEntity<Object> findRole(
+        @PathVariable("code") String code,
+        @PathVariable("nid") String nid
+    ) {
+        StudentDto student = courseService.findStudentByNid(code, nid);
+        TeacherDto teacher = courseService.findTeacherByNid(code, nid);
+        Object target = student == null ? teacher : student;
+        return defaultNotFound(target != null, target);
     }
 
 //    @GetMapping("/{name}")
