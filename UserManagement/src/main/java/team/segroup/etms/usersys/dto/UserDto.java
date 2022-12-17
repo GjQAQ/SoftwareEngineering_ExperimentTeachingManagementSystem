@@ -13,12 +13,14 @@ public class UserDto {
     private String name;
     private String email;
     private boolean active;
+    private boolean admin;
 
     public UserDto(User user) {
         this.nid = user.getNid();
         this.name = user.getUsername();
         this.email = user.getEmail();
         this.active = user.isActive();
+        this.admin = user.isAdmin();
     }
 
     public User toUser() {
@@ -32,5 +34,6 @@ public class UserDto {
         user.setUsername(name);
         user.setEmail(email);
         user.setActive(active);
+        user.setAdmin(admin);
     }
 }

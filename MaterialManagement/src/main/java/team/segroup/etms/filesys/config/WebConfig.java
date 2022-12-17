@@ -1,4 +1,4 @@
-package team.segroup.etms.scoresys.configuration;
+package team.segroup.etms.filesys.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(getAuthenticator())
             .addPathPatterns("/**");
-    }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(Jsr310Converters.StringToLocalDateTimeConverter.INSTANCE);
     }
 
     @Override

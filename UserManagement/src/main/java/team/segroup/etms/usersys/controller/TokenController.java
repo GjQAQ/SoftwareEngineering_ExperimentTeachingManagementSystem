@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import team.segroup.etms.ResponseBody;
 import team.segroup.etms.TokenInfo;
+import team.segroup.etms.usersys.dto.UserDto;
 import team.segroup.etms.usersys.entity.User;
 import team.segroup.etms.usersys.service.TokenService;
 import team.segroup.etms.usersys.service.UserService;
@@ -40,7 +41,7 @@ public class TokenController {
         }
 
         String token = tokenService.generateToken(nid);
-        User user = userService.retrieveUser(nid);
+        UserDto user = userService.retrieveUser(nid);
         return ResponseEntity.ok(ResponseBody.create()
             .add("token", token)
             .add("isAdmin", user.isAdmin())

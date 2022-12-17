@@ -8,6 +8,8 @@ import team.segroup.etms.coursesys.dto.TeacherDto;
 import team.segroup.etms.coursesys.entity.Teacher;
 import team.segroup.etms.coursesys.service.CourseService;
 
+import java.util.List;
+
 import static team.segroup.etms.utils.ControllerUtils.*;
 
 @RestController
@@ -22,6 +24,14 @@ public class TeacherController {
     ) {
         TeacherDto teacher = courseService.findTeacherByNid(code, nid);
         return defaultResponse(teacher != null, teacher, ResponseEntity.status(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{code}")
+    public ResponseEntity<List<TeacherDto>> listAllTeachers(
+        @PathVariable("code") String code
+    ) {
+        List<TeacherDto> teachers = courseService.listAllTeachers(code);
+        return defaultNotFound(teachers.size() > 0, teachers);
     }
 
     @PostMapping("/{code}")

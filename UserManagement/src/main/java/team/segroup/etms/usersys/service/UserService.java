@@ -52,7 +52,13 @@ public interface UserService {
      * @param nid 学号
      * @return 用户实例。失败返回null
      */
-    User retrieveUser(String nid);
+    UserDto retrieveUser(String nid);
+
+    List<UserDto> listAllUsers();
+
+    UncheckedUserDto retrieveUncheckedUser(String nid);
+
+    List<UncheckedUserDto> listAllUncheckedUsers();
 
     /**
      * 注销账号
@@ -67,4 +73,6 @@ public interface UserService {
      * @return 是否成功
      */
     boolean updateUser(UserDto userDto);
+
+    boolean updatePassword(String password, String nid);
 }

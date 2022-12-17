@@ -1,0 +1,31 @@
+server:
+  port: 8084
+
+spring:
+#  datasource:
+#    username: root
+#    password: HCC.mysql.pw#0
+#    url: jdbc:mysql://120.78.65.145:3306/score_sys
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:
+      uri: mongodb://root:iamroot@120.78.65.145:27017/
+      database: etms
+  servlet:
+    multipart:
+      max-file-size: 64MB
+      max-request-size: 64MB
+
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type.discriptor.sql.BasicBinder: trace
+
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"

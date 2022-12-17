@@ -12,10 +12,13 @@ import team.segroup.etms.usersys.entity.UncheckedUser;
 import team.segroup.etms.usersys.entity.User;
 import team.segroup.etms.usersys.service.UserService;
 
+import static team.segroup.etms.utils.ControllerUtils.*;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -26,13 +29,28 @@ public class UserController {
 
     @GetMapping("/{nid}")
     public ResponseEntity<UserDto> retrieveUser(@PathVariable("nid") String nid) {
-        User user = userService.retrieveUser(nid);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            user.setPassword("");
-            return ResponseEntity.ok(new UserDto(user));
-        }
+        UserDto user = userService.retrieveUser(nid);
+        return defaultNotFound(user != null, user);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDto>> listAllUsers() {
+        List<UserDto> users = userService.listAllUsers();
+        return defaultNotFound(users.size() > 0, users);
+    }
+
+    @GetMapping("/unchecked/{nid}")
+    public ResponseEntity<UncheckedUserDto> retrieveUnchecked(
+        @PathVariable("nid") String nid
+    ) {
+        UncheckedUserDto dto = userService.retrieveUncheckedUser(nid);
+        return defaultNotFound(dto != null, dto);
+    }
+
+    @GetMapping("/unchecked")
+    public ResponseEntity<List<UncheckedUserDto>> listAllUnchecked() {
+        List<UncheckedUserDto> users = userService.listAllUncheckedUsers();
+        return defaultNotFound(users.size() > 0, users);
     }
 
     // note: accept Content-Type:application/json only
@@ -50,13 +68,13 @@ public class UserController {
 
     @DeleteMapping("/{nid}")
     public ResponseEntity<UserDto> removeUser(@PathVariable("nid") String nid) {
-        User user = userService.retrieveUser(nid);
+        UserDto user = userService.retrieveUser(nid);
         if (user == null) {
             return ResponseEntity.notFound().build();
         }
 
         userService.removeUser(nid);
-        return ResponseEntity.ok(new UserDto(user));
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/{nid}/validate")
@@ -76,12 +94,22 @@ public class UserController {
     }
 
     @PatchMapping("/{nid}/activate")
-    public ResponseEntity<User> activateUser(@PathVariable("nid") String nid) {
+    public ResponseEntity<String> activateUser(@PathVariable("nid") String nid) {
         boolean valid = userService.activateUser(nid);
+        return defaultBadRequest(valid, "ok");
+    }
+
+    @PatchMapping(value = "/{nid}/password")
+    public ResponseEntity<String> modifyPassword(
+        @PathVariable("nid") String nid,
+        @RequestBody Map<String, String> body
+    ) {
+        String old = body.get("old"), pwd = body.get("new");
+        boolean valid = userService.verify(nid, old);
         if (valid) {
-            return ResponseEntity.ok().build();
+            return defaultBadRequest(userService.updatePassword(pwd, nid), "ok");
         } else {
-            return ResponseEntity.badRequest().build();
+            return defaultBadRequest(false, null);
         }
     }
 

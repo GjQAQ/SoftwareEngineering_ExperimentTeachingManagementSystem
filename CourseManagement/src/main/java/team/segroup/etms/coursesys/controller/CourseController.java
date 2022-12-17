@@ -9,6 +9,8 @@ import team.segroup.etms.coursesys.dto.StudentDto;
 import team.segroup.etms.coursesys.dto.TeacherDto;
 import team.segroup.etms.coursesys.service.CourseService;
 
+import java.util.List;
+
 import static team.segroup.etms.utils.ControllerUtils.*;
 
 @RestController
@@ -51,11 +53,21 @@ public class CourseController {
         return defaultNotFound(target != null, target);
     }
 
-//    @GetMapping("/{name}")
-//    public ResponseEntity<CourseDto> findCourseByName(@PathVariable("name") String name) {
-//        CourseDto course = courseService.findCourseByName(name);
-//        return defaultResponse(course!=null, course, ResponseEntity.status(HttpStatus.NOT_FOUND));
-//    }
+    @GetMapping("/student/{nid}")
+    public ResponseEntity<List<CourseDto>> findStudentsCourses(
+        @PathVariable("nid") String nid
+    ) {
+        List<CourseDto> courses = courseService.findStudentsCourses(nid);
+        return defaultNotFound(courses.size() > 0, courses);
+    }
+
+    @GetMapping("/teacher/{nid}")
+    public ResponseEntity<List<CourseDto>> findTeachersCourses(
+        @PathVariable("nid") String nid
+    ) {
+        List<CourseDto> courses = courseService.findTeachersCourses(nid);
+        return defaultNotFound(courses.size() > 0, courses);
+    }
 
     @Autowired
     public void setCourseService(CourseService courseService) {

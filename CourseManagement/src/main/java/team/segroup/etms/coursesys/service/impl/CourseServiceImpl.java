@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 // TODO:针对无效的请求抛出warning
@@ -72,6 +73,24 @@ public class CourseServiceImpl implements CourseService {
     public CourseDto findCourseByCode(String code) {
         Optional<Course> course = courseRepository.findByCode(code);
         return course.map(CourseDto::new).orElse(null);
+    }
+
+    @Override
+    public List<CourseDto> findStudentsCourses(String nid) {
+        List<Student> students = studentRepository.findByNid(nid);
+        return students.stream()
+            .map(Student::getCourse)
+            .map(CourseDto::new)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseDto> findTeachersCourses(String nid) {
+        List<Teacher> teachers = teacherRepository.findByNid(nid);
+        return teachers.stream()
+            .map(Teacher::getCourse)
+            .map(CourseDto::new)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -136,6 +155,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<StudentDto> listAllStudents(String courseCode) {
+        List<Student> students = studentRepository.findByCourseCode(courseCode);
+        return students.stream()
+            .map(StudentDto::new)
+            .collect(Collectors.toList());
+    }
+
+    @Override
     public TeacherDto addTeacher(String courseCode, TeacherDto teacherDto) {
         if (teacherRepository.findByNidAndCourseCode(
             teacherDto.getNid(), courseCode
@@ -180,6 +207,14 @@ public class CourseServiceImpl implements CourseService {
     public TeacherDto findTeacherByNid(String courseCode, String nid) {
         Optional<Teacher> teacherOpt = teacherRepository.findByNidAndCourseCode(nid, courseCode);
         return teacherOpt.map(TeacherDto::new).orElse(null);
+    }
+
+    @Override
+    public List<TeacherDto> listAllTeachers(String courseCode) {
+        List<Teacher> teachers = teacherRepository.findByCourseCode(courseCode);
+        return teachers.stream()
+            .map(TeacherDto::new)
+            .collect(Collectors.toList());
     }
 
     @Autowired

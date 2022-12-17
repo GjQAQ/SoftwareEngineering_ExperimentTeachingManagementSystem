@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -129,16 +130,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User retrieveUser(String nid) {
+    public UserDto retrieveUser(String nid) {
         Optional<User> user = userRepository.findByNid(nid);
         if (!user.isPresent()) {
             logger.warn("User with nid=" + nid + " does not exist but was retrieved.");
             return null;
         }
 
-        return user.get();
+        return new UserDto(user.get());
     }
 
+    @Override
+    public List<UserDto> listAllUsers() {
+        return userRepository.findAll()
+            .stream()
+            .map(UserDto::new)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public UncheckedUserDto retrieveUncheckedUser(String nid) {
+        return uncUserRepository.findByNid(nid)
+            .map(UncheckedUserDto::new)
+            .orElse(null);
+    }
+
+    @Override
+    public List<UncheckedUserDto> listAllUncheckedUsers() {
+        return uncUserRepository.findAll()
+            .stream()
+            .map(UncheckedUserDto::new)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional
     @Override
     public boolean removeUser(String nid) {
         Optional<User> user = userRepository.findByNid(nid);
@@ -162,6 +187,19 @@ public class UserServiceImpl implements UserService {
 
         User user = optionalUser.get();
         userDto.coverUser(user);
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean updatePassword(String password, String nid) {
+        Optional<User> userOpt = userRepository.findByNid(nid);
+        if(!userOpt.isPresent()){
+            return false;
+        }
+
+        User user = userOpt.get();
+        user.setPassword(password);
         userRepository.save(user);
         return true;
     }

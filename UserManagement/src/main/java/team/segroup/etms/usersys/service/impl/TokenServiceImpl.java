@@ -7,6 +7,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.segroup.etms.usersys.dto.UserDto;
 import team.segroup.etms.usersys.entity.User;
 import team.segroup.etms.TokenInfo;
 import team.segroup.etms.usersys.service.TokenService;
@@ -45,7 +46,7 @@ public class TokenServiceImpl implements TokenService {
         }
 
         String nid = decodedJWT.getClaim("nid").asString();
-        User user = userService.retrieveUser(nid);
+        UserDto user = userService.retrieveUser(nid);
         return new TokenInfo(
             decodedJWT.getExpiresAtAsInstant(),
             nid,

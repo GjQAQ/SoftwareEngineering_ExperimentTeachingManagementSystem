@@ -30,6 +30,10 @@ public interface CourseService {
 
     StudentDto findStudentByNid(String courseCode, String nid);
 
+    List<StudentDto> listAllStudents(String courseCode);
+
+    List<CourseDto> findStudentsCourses(String nid);
+
     TeacherDto addTeacher(String courseCode, TeacherDto teacherDto);
 
     TeacherDto changeRole(String courseCode, String nid, Teacher.Role newRole);
@@ -37,4 +41,8 @@ public interface CourseService {
     boolean removeTeacher(String courseCode, String nid);
 
     TeacherDto findTeacherByNid(String courseCode, String nid);
+
+    List<CourseDto> findTeachersCourses(String nid);
+
+    List<TeacherDto> listAllTeachers(String courseCode);
 }

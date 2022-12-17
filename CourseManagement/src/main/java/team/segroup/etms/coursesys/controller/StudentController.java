@@ -27,6 +27,14 @@ public class StudentController {
         return defaultResponse(student != null, student, ResponseEntity.status(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/{code}")
+    public ResponseEntity<List<StudentDto>> findStudents(
+        @PathVariable("code") String code
+    ) {
+        List<StudentDto> students = courseService.listAllStudents(code);
+        return defaultNotFound(students.size() > 0, students);
+    }
+
     @PostMapping("/{code}")
     public ResponseEntity<StudentDto> addStudent(
         @PathVariable("code") String code,
