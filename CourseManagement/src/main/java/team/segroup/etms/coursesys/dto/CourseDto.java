@@ -1,9 +1,12 @@
 package team.segroup.etms.coursesys.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team.segroup.etms.coursesys.entity.Course;
+import team.segroup.etms.utils.LocalDate2Timestamp;
+import team.segroup.etms.utils.LocalDateSerializer;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -14,7 +17,9 @@ import java.time.LocalDate;
 public class CourseDto {
     private String name;
     private String code;
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate startTime;
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endTime;
     private Course.Status status;
     private String description;

@@ -72,6 +72,13 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
+    public AssignmentDto findByAsid(int asid) {
+        return assignmentRepository.findByAsid(asid)
+            .map(AssignmentDto::new)
+            .orElse(null);
+    }
+
+    @Override
     public List<AssignmentDto> findByCourseCode(String code) {
         return assignmentRepository.findByCourseCode(code)
             .stream()

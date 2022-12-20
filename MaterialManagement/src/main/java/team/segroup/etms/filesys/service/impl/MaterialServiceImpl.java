@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.stereotype.Service;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import team.segroup.etms.filesys.service.MaterialMeta;
+import team.segroup.etms.filesys.meta.MaterialMetaBase;
 import team.segroup.etms.filesys.service.MaterialService;
 
 import java.io.InputStream;
@@ -25,7 +25,7 @@ public class MaterialServiceImpl implements MaterialService {
     private GridFSBucket gridFSBucket;
 
     @Override
-    public MaterialMeta upload(MaterialMeta meta, InputStream inputStream) {
+    public MaterialMetaBase upload(MaterialMetaBase meta, InputStream inputStream) {
         meta.setCreationTime(LocalDateTime.now().toString());
         meta.setLastModificationTime(LocalDateTime.now().toString());
 
@@ -37,16 +37,15 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public MaterialMeta retrieveMeta(String id) {
+    public MaterialMetaBase retrieveMeta(String id) {
         GridFSFile gridFSFile = gridFsTemplate.findOne(Query.query(
             Criteria.where("_id").is(id)
         ));
         if (gridFSFile == null) {
             return null;
         }
-
         Document metadata = gridFSFile.getMetadata();
-        return new MaterialMeta(
+        return new MaterialMetaBase(
             id,
             metadata.getString("name"),
             metadata.getString("description"),
@@ -69,13 +68,13 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<MaterialMeta> listAll() {
+    public List<MaterialMetaBase> listAll() {
         //TODO:implement
         throw new NotImplementedException();
     }
 
     @Override
-    public MaterialMeta modify(MaterialMeta meta, InputStream inputStream) {
+    public MaterialMetaBase modify(MaterialMetaBase meta, InputStream inputStream) {
         GridFSFile gridFSFile = gridFsTemplate.findOne(Query.query(
             Criteria.where("_id").is(meta.getId())
         ));

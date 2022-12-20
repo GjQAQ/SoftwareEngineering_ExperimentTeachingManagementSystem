@@ -10,6 +10,8 @@ import java.util.stream.Stream;
 public interface ExperimentRepository extends CrudRepository<Experiment, Integer> {
     Optional<Experiment> findByName(String name);
 
+    Optional<Experiment> findByEid(int eid);
+
     Stream<Experiment> findByCode(String code);
 
     Stream<Experiment> findByDescriptionContains(String keyword);

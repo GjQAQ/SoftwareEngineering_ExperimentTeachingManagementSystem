@@ -9,9 +9,13 @@ public interface ExperimentService {
 
     boolean deleteByName(String name);
 
+    boolean deleteByEid(int eid);
+
     ExperimentDto modify(ExperimentDto experimentDto);
 
     ExperimentDto findByName(String name);
+
+    ExperimentDto findByEid(int eid);
 
     List<ExperimentDto> findByCourseCode(String courseCode);
 }

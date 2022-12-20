@@ -16,14 +16,24 @@ import static team.segroup.etms.utils.ControllerUtils.*;
 public class ExperimentController {
     private ExperimentService experimentService;
 
-    @GetMapping("/{name}")
-    public ResponseEntity<ExperimentDto> findOne(@PathVariable("name") String name) {
+    @GetMapping(params = "name")
+    public ResponseEntity<ExperimentDto> findByName(
+        @RequestParam("name") String name
+    ) {
         ExperimentDto experimentDto = experimentService.findByName(name);
         return defaultResponse(
             experimentDto != null,
             experimentDto,
             ResponseEntity.status(HttpStatus.NOT_FOUND)
         );
+    }
+
+    @GetMapping("/{eid}")
+    public ResponseEntity<ExperimentDto> findByEid(
+        @PathVariable("eid") int eid
+    ) {
+        ExperimentDto experimentDto = experimentService.findByEid(eid);
+        return defaultNotFound(experimentDto != null, experimentDto);
     }
 
     @GetMapping(params = "course")

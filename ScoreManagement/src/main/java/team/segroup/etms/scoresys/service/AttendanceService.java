@@ -9,6 +9,8 @@ import java.util.Set;
 public interface AttendanceService {
     AttendanceDto create(AttendanceDto attendanceDto, Set<String> nids);
 
+    AttendanceDto findByAtid(int atid);
+
     List<AttendanceDto> findByCourseCode(String code);
 
     List<AttendanceDto> findByOwner(String nid);

@@ -9,6 +9,8 @@ import java.util.Set;
 public interface AssignmentService {
     AssignmentDto create(AssignmentDto assignmentDto, Set<String> nids);
 
+    AssignmentDto findByAsid(int asid);
+
     List<AssignmentDto> findByCourseCode(String code);
 
     List<AssignmentDto> findByOwner(String nid);

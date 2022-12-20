@@ -51,6 +51,14 @@ public class AssignmentController {
         return defaultNotFound(result.size() > 0, result);
     }
 
+    @GetMapping("/{asid}")
+    public ResponseEntity<AssignmentDto> findByAsid(
+        @PathVariable("asid") int asid
+    ) {
+        AssignmentDto dto = assignmentService.findByAsid(asid);
+        return defaultNotFound(dto != null, dto);
+    }
+
     @GetMapping("/{asid}/success")
     public ResponseEntity<List<String>> findSuccessList(
         @PathVariable("asid") int asid

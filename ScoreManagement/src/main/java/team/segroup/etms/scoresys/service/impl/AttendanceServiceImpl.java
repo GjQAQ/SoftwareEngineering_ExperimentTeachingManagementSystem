@@ -77,6 +77,13 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    public AttendanceDto findByAtid(int atid) {
+        return attendanceRepository.findByAtid(atid)
+            .map(AttendanceDto::new)
+            .orElse(null);
+    }
+
+    @Override
     public List<AttendanceDto> findByCourseCode(String code) {
         return attendanceRepository.findByCourseCode(code)
             .stream()

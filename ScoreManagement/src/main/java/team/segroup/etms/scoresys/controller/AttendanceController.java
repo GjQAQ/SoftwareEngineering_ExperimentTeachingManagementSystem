@@ -1,5 +1,6 @@
 package team.segroup.etms.scoresys.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/attendances")
+@Slf4j
 public class AttendanceController {
     private AttendanceService attendanceService;
 
@@ -49,6 +51,14 @@ public class AttendanceController {
     ) {
         List<AttendanceDto> attendances = attendanceService.findByOwner(ownerNid);
         return defaultNotFound(attendances.size() > 0, attendances);
+    }
+
+    @GetMapping("/{atid}")
+    public ResponseEntity<AttendanceDto> findByAtid(
+        @PathVariable("atid")int atid
+    ){
+        AttendanceDto dto = attendanceService.findByAtid(atid);
+        return defaultNotFound(dto!=null, dto);
     }
 
     @GetMapping("/{atid}/success")

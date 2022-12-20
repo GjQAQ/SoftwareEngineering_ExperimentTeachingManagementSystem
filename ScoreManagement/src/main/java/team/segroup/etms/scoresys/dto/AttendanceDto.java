@@ -1,9 +1,11 @@
 package team.segroup.etms.scoresys.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import team.segroup.etms.scoresys.entity.Attendance;
+import team.segroup.etms.utils.LocalDateTimeSerializer;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -15,7 +17,9 @@ public class AttendanceDto {
     private Integer atid;
     private String courseCode;
     private String name;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime startTime;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime endTime;
     private String ownerNid;
 
