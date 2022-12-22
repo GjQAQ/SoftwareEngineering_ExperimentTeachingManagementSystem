@@ -1,9 +1,9 @@
 package team.segroup.etms.scoresys.service.impl;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import team.segroup.etms.scoresys.dto.AttendanceDto;
 import team.segroup.etms.scoresys.entity.Attendance;
@@ -12,45 +12,23 @@ import team.segroup.etms.scoresys.repository.AttendanceRepository;
 import team.segroup.etms.scoresys.repository.CheckoutRepository;
 import team.segroup.etms.scoresys.service.AttendanceService;
 
-import javax.annotation.PostConstruct;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.Delayed;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class AttendanceServiceImpl implements AttendanceService {
+    private static final long DEFAULT_DELAY = 1000 * 60 * 60;
+
     private AttendanceRepository attendanceRepository;
     private CheckoutRepository checkoutRepository;
 
-    private final DelayQueue<CheckAttendanceTask> checkers = new DelayQueue<>();
-
-    @PostConstruct
-    public void init() {
-        log.trace("AttendanceService initializing...");
-        Executors.newSingleThreadExecutor().execute(new Thread(() -> {
-            while (true) {
-                try {
-                    checkers.take().check();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    log.error("Attendance checker fails.");
-                }
-            }
-        }));
-    }
-
     @Override
     public AttendanceDto create(
-        AttendanceDto attendanceDto,
-        Set<String> nids
+        AttendanceDto attendanceDto
     ) {
         attendanceDto.setAtid(null);
         if (!validateAttendance(attendanceDto)) {
@@ -58,21 +36,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
 
         Attendance result = attendanceRepository.save(attendanceDto.toAttendance());
-        long duration = result.getEndTime().getTime() - result.getStartTime().getTime();
-        checkers.put(new CheckAttendanceTask(
-            duration, result.getStartTime().getTime(), result.getAtid()
-        ));
-        log.info("Scheduled task set(atid=" + attendanceDto.getAtid() + ")");
-
-        for (String nid : nids) {
-            checkoutRepository.save(new Checkout(
-                null,
-                result.getAtid(),
-                nid,
-                null,
-                Checkout.Status.GOING_ON
-            ));
-        }
         return new AttendanceDto(result);
     }
 
@@ -101,51 +64,102 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<String> findSuccessList(int atid) {
-        return findListByStatus(atid, Checkout.Status.SUCCESS);
+        throw new NotImplementedException();
     }
 
     @Override
     public List<String> findLateList(int atid) {
-        return findListByStatus(atid, Checkout.Status.LATE);
+        throw new NotImplementedException();
     }
 
     @Override
     public List<String> findAbsentList(int atid) {
-        return findListByStatus(atid, Checkout.Status.ABSENT);
+        throw new NotImplementedException();
     }
 
     @Override
     public List<String> findIndividualInvolved(int atid) {
-        return findListByStatus(atid, null);
+        throw new NotImplementedException();
     }
 
     @Override
     public Checkout.Status queryAttendanceStatus(int atid, String nid) {
-        Optional<Checkout> checkout = checkoutRepository.findByAtidAndNid(atid, nid);
-        return checkout.map(Checkout::getStatus).orElse(null);
+        Optional<Checkout> checkOutOpt = checkoutRepository.findByAtidAndNid(atid, nid);
+        if (checkOutOpt.isPresent()) {
+            return checkOutOpt.get().getStatus();
+        }
+
+        Optional<Attendance> attOpt = attendanceRepository.findByAtid(atid);
+        if (!attOpt.isPresent()) {
+            return null;
+        }
+        Attendance attendance = attOpt.get();
+        Timestamp now = Timestamp.from(Instant.now());
+        if (now.compareTo(attendance.getStartTime()) < 0) {
+            return Checkout.Status.NOT_START;
+        } else if (now.compareTo(attendance.getEndTime()) < 0) {
+            return Checkout.Status.GOING_ON;
+        } else {
+            return Checkout.Status.ABSENT;
+        }
+    }
+
+    @Transactional
+    @Override
+    public Checkout.Status signIn(int atid, String nid, Instant checkTime) {
+        Checkout.Status status = queryAttendanceStatus(atid, nid);
+        if (status == null) {
+            return null;
+        } else if (status != Checkout.Status.GOING_ON &&
+            status != Checkout.Status.ABSENT) {
+            return Checkout.Status.FAILED;
+        }
+
+        Attendance attendance = attendanceRepository.findByAtid(atid).get();
+        Timestamp checkT = Timestamp.from(checkTime);
+        Timestamp endT = attendance.getEndTime();
+        Timestamp ddl = Timestamp.from(Instant.ofEpochMilli(endT.getTime() + DEFAULT_DELAY));
+        if (endT.compareTo(checkT) > 0) {
+            checkoutRepository.save(new Checkout(
+                null,
+                atid,
+                nid,
+                checkT,
+                Checkout.Status.SUCCESS
+            ));
+            return Checkout.Status.SUCCESS;
+        } else if (ddl.compareTo(checkT) > 0) {
+            checkoutRepository.save(new Checkout(
+                null,
+                atid,
+                nid,
+                checkT,
+                Checkout.Status.LATE
+            ));
+            return Checkout.Status.LATE;
+        } else {
+            return Checkout.Status.FAILED;
+        }
     }
 
     @Override
-    public Checkout.Status signIn(int atid, String nid) {
-        Optional<Checkout> target = checkoutRepository.findByAtidAndNid(atid, nid);
-        if (!target.isPresent()) {
+    public AttendanceDto modify(AttendanceDto attendanceDto) {
+        if (attendanceDto.getAtid() == null ||
+            !attendanceRepository.findByAtid(attendanceDto.getAtid()).isPresent()) {
             return null;
         }
+        Attendance result = attendanceRepository.save(attendanceDto.toAttendance());
+        return new AttendanceDto(result);
+    }
 
-        long now = System.currentTimeMillis();
-        Checkout checkout = target.get();
-        Attendance attendance = checkout.getAttendance();
-        if (now < attendance.getStartTime().getTime()) {
-            checkout.setStatus(Checkout.Status.SUCCESS);
-            checkout.setCheckTime(Timestamp.from(Instant.now()));
-        } else if (now < attendance.getEndTime().getTime()) {
-            checkout.setStatus(Checkout.Status.LATE);
-            checkout.setCheckTime(Timestamp.from(Instant.now()));
-        } else {
-            checkout.setStatus(Checkout.Status.ABSENT);
+    @Override
+    public boolean delete(int atid) {
+        if(!attendanceRepository.findByAtid(atid).isPresent()){
+            return false;
         }
 
-        return checkoutRepository.save(checkout).getStatus();
+        attendanceRepository.deleteById(atid);
+        return true;
     }
 
     private boolean validateAttendance(AttendanceDto attendanceDto, boolean ext) {

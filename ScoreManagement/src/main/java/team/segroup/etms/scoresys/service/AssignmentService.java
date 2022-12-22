@@ -28,4 +28,8 @@ public interface AssignmentService {
     Submission.Status submit(int asid, String nid, String content);
 
     Integer grade(int asid, String nid, int score);
+
+    AssignmentDto modify(AssignmentDto assignmentDto);
+
+    boolean delete(int asid);
 }

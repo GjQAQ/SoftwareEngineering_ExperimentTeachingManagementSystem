@@ -29,5 +29,5 @@ public class Checkout {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public enum Status {SUCCESS, LATE, ABSENT, GOING_ON}
+    public enum Status {SUCCESS, LATE, ABSENT, GOING_ON, NOT_START, FAILED}
 }

@@ -3,11 +3,11 @@ package team.segroup.etms.scoresys.service;
 import team.segroup.etms.scoresys.dto.AttendanceDto;
 import team.segroup.etms.scoresys.entity.Checkout;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.Set;
 
 public interface AttendanceService {
-    AttendanceDto create(AttendanceDto attendanceDto, Set<String> nids);
+    AttendanceDto create(AttendanceDto attendanceDto);
 
     AttendanceDto findByAtid(int atid);
 
@@ -25,5 +25,9 @@ public interface AttendanceService {
 
     Checkout.Status queryAttendanceStatus(int atid, String nid);
 
-    Checkout.Status signIn(int atid, String nid);
+    Checkout.Status signIn(int atid, String nid, Instant checkTime);
+
+    AttendanceDto modify(AttendanceDto attendanceDto);
+
+    boolean delete(int atid);
 }

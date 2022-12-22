@@ -24,7 +24,6 @@ public class Attendance {
 
     private String name;
 
-    //TODO:Is Time type ok?
     private Timestamp startTime;
 
     private Timestamp endTime;

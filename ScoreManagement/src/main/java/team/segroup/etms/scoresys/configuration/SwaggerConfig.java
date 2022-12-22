@@ -26,7 +26,7 @@ public class SwaggerConfig {
 
     private ApiInfo addApiInfo() {
         return new ApiInfoBuilder()
-            .title("Experiment Management Module")
+            .title("Score Management Module")
             .description("API Doc")
             .version("0.1")
             .contact(new Contact(

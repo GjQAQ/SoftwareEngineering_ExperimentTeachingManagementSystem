@@ -10,6 +10,8 @@ import team.segroup.etms.scoresys.service.AttendanceService;
 
 import static team.segroup.etms.utils.ControllerUtils.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -22,18 +24,10 @@ public class AttendanceController {
 
     @PostMapping
     public ResponseEntity<AttendanceDto> create(
-        @RequestParam("courseCode") String courseCode,
-        @RequestParam("name") String name,
-        @RequestParam("start") LocalDateTime startTime,
-        @RequestParam("end") LocalDateTime endTime,
-        @RequestParam("owner") String ownerNid,
-        @RequestBody Set<String> nids
+        @RequestBody AttendanceDto attendanceDto
     ) {
-        //TODO:validate arguments
-        AttendanceDto attendanceDto = new AttendanceDto(
-            null, courseCode, name, startTime, endTime, ownerNid
-        );
-        AttendanceDto attendance = attendanceService.create(attendanceDto, nids);
+        attendanceDto.setAtid(null);
+        AttendanceDto attendance = attendanceService.create(attendanceDto);
         return defaultBadRequest(attendance != null, attendance);
     }
 
@@ -55,42 +49,10 @@ public class AttendanceController {
 
     @GetMapping("/{atid}")
     public ResponseEntity<AttendanceDto> findByAtid(
-        @PathVariable("atid")int atid
-    ){
+        @PathVariable("atid") int atid
+    ) {
         AttendanceDto dto = attendanceService.findByAtid(atid);
-        return defaultNotFound(dto!=null, dto);
-    }
-
-    @GetMapping("/{atid}/success")
-    public ResponseEntity<List<String>> findSuccessList(
-        @PathVariable("atid") int atid
-    ) {
-        List<String> successList = attendanceService.findSuccessList(atid);
-        return defaultNotFound(successList != null, successList);
-    }
-
-    @GetMapping("/{atid}/late")
-    public ResponseEntity<List<String>> findLateList(
-        @PathVariable("atid") int atid
-    ) {
-        List<String> successList = attendanceService.findLateList(atid);
-        return defaultNotFound(successList != null, successList);
-    }
-
-    @GetMapping("/{atid}/absent")
-    public ResponseEntity<List<String>> findAbsentList(
-        @PathVariable("atid") int atid
-    ) {
-        List<String> successList = attendanceService.findAbsentList(atid);
-        return defaultNotFound(successList != null, successList);
-    }
-
-    @GetMapping("/{atid}/participants")
-    public ResponseEntity<List<String>> findParticipantList(
-        @PathVariable("atid") int atid
-    ) {
-        List<String> successList = attendanceService.findIndividualInvolved(atid);
-        return defaultNotFound(successList != null, successList);
+        return defaultNotFound(dto != null, dto);
     }
 
     @GetMapping("/{atid}/{nid}")
@@ -105,12 +67,28 @@ public class AttendanceController {
     @PatchMapping("/{atid}/{nid}")
     public ResponseEntity<Checkout.Status> signIn(
         @PathVariable("atid") int atid,
-        @PathVariable("nid") String nid
+        @PathVariable("nid") String nid,
+        @RequestParam("checkTime") long checkTime
     ) {
-        Checkout.Status status = attendanceService.signIn(atid, nid);
-        return defaultBadRequest(status != null, status);
+        Checkout.Status status = attendanceService.signIn(atid, nid, Instant.ofEpochMilli(checkTime));
+        return defaultNotFound(status != null, status);
     }
 
+    @PatchMapping("/{atid}")
+    public ResponseEntity<AttendanceDto> modify(
+        @RequestBody AttendanceDto attendanceDto
+    ) {
+        AttendanceDto result = attendanceService.modify(attendanceDto);
+        return defaultBadRequest(result != null, result);
+    }
+
+    @DeleteMapping("/{atid}")
+    public ResponseEntity<String> delete(
+        @PathVariable("atid") int atid
+    ) {
+        boolean result = attendanceService.delete(atid);
+        return defaultNotFound(result, "ok");
+    }
 
     @Autowired
     public void setAttendanceService(AttendanceService attendanceService) {

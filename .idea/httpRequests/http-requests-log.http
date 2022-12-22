@@ -1,3 +1,88 @@
+POST http://120.78.65.145:8083/actuator/shutdown
+
+###
+
+PATCH http://localhost:8083/attendances/12/2000006?checkTime=1671689103000
+Token: warrant
+
+<> 2022-12-22T020526.200.json
+
+###
+
+PATCH http://localhost:8083/attendances/12/2000005?checkTime=1671689103000
+Token: warrant
+
+<> 2022-12-22T020518.200.json
+
+###
+
+PATCH http://localhost:8083/attendances/12/2000005?checkTime=1671688750000
+Token: warrant
+
+<> 2022-12-22T020334.200.json
+
+###
+
+PATCH http://localhost:8083/attendances/12/2000001?checkTime=1671688750000
+Token: warrant
+
+<> 2022-12-22T015924.200.json
+
+###
+
+POST http://localhost:8083/attendances
+Content-Type: application/json
+Token: warrant
+
+{
+  "atid": null,
+  "courseCode": "20220000",
+  "name": "test",
+  "startTime": "2022-12-22T13:30:00",
+  "endTime": "2022-12-22T14:00:00",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-22T015736.200.json
+
+###
+
+POST http://120.78.65.145:8083/assignments?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002&description=test
+Content-Type: application/json
+Token: warrant
+
+["2000001"]
+
+<> 2022-12-22T012601.200.json
+
+###
+
+POST http://120.78.65.145:8083/attendances?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002&description=test
+Content-Type: application/json
+Token: warrant
+
+["2000001"]
+
+<> 2022-12-22T012548.400.json
+
+###
+
+POST http://120.78.65.145:8083/attendances?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002
+Content-Type: application/json
+Token: warrant
+
+["2000001"]
+
+<> 2022-12-22T012528.400.json
+
+###
+
+POST http://120.78.65.145:8083/actuator/shutdown
+
+<> 2022-12-21T094255.200.json
+
+###
+
 GET http://120.78.65.145:8082/assignments/1
 Token: warrant
 
@@ -273,70 +358,6 @@ Token: warrant
 POST http://120.78.65.145:8084/actuator/shutdown
 
 <> 2022-12-18T113439.200.json
-
-###
-
-GET http://localhost:8084/files/639ddd68a209fe62526d9e1a/meta
-Token: warrant
-
-<> 2022-12-18T113218.200.json
-
-###
-
-GET http://120.78.65.145:8081:8081/courses/20220000
-Token: warrant
-
-<> 2022-12-18T112650.200.json
-
-###
-
-POST http://120.78.65.145:8081/actuator/shutdown
-Token: warrant
-
-<> 2022-12-18T112606.500.json
-
-###
-
-POST http://120.78.65.145:8081/actuator/shutdown
-
-###
-
-GET http://120.78.65.145:8081:8081/courses/20220000
-Token: warrant
-
-<> 2022-12-18T112513.200.json
-
-###
-
-GET http://localhost:8081/courses/20220000
-Token: warrant
-
-<> 2022-12-18T111939.200.json
-
-###
-
-GET http://localhost:8081/courses/20220000
-Token: warrant
-
-<> 2022-12-18T111531.200.json
-
-###
-
-GET http://localhost:8081/courses/20220000
-Token: warrant
-
-<> 2022-12-18T110515.200.json
-
-###
-
-GET http://localhost:8081/courses/test
-Token: warrant
-
-<> 2022-12-18T104447.200.json
-
-###
-
-GET http://localhost:8081/courses/test
 
 ###
 

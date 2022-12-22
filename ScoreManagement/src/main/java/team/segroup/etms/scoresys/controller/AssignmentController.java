@@ -121,6 +121,22 @@ public class AssignmentController {
         return defaultBadRequest(grade != null, grade);
     }
 
+    @PatchMapping("/{asid}")
+    public ResponseEntity<AssignmentDto> modify(
+        @RequestBody AssignmentDto assignmentDto
+    ) {
+        AssignmentDto modify = assignmentService.modify(assignmentDto);
+        return defaultBadRequest(modify != null, modify);
+    }
+
+    @DeleteMapping("/{asid}")
+    public ResponseEntity<String> delete(
+        @PathVariable("asid") int asid
+    ) {
+        boolean result = assignmentService.delete(asid);
+        return defaultNotFound(result, "ok");
+    }
+
     @Autowired
     public void setAssignmentService(AssignmentService assignmentService) {
         this.assignmentService = assignmentService;

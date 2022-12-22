@@ -27,7 +27,7 @@ public class SwaggerConfig {
 
     private ApiInfo addApiInfo() {
         return new ApiInfoBuilder()
-            .title("User Management Module")
+            .title("Material Management Module")
             .description("API Doc")
             .version("0.1")
             .contact(new Contact(

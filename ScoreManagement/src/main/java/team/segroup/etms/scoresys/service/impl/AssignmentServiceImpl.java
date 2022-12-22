@@ -155,6 +155,25 @@ public class AssignmentServiceImpl implements AssignmentService {
         return submissionRepository.save(submission).getScore();
     }
 
+    @Override
+    public AssignmentDto modify(AssignmentDto assignmentDto) {
+        if (assignmentDto.getAsid() == null ||
+            !assignmentRepository.findByAsid(assignmentDto.getAsid()).isPresent()) {
+            return null;
+        }
+        Assignment result = assignmentRepository.save(assignmentDto.toAssignment());
+        return new AssignmentDto(result);
+    }
+
+    @Override
+    public boolean delete(int asid) {
+        if (!assignmentRepository.findByAsid(asid).isPresent()) {
+            return false;
+        }
+        assignmentRepository.deleteById(asid);
+        return true;
+    }
+
     //TODO:implement
     private boolean validateAssignment(AssignmentDto assignmentDto, boolean ext) {
         throw new NotImplementedException();
