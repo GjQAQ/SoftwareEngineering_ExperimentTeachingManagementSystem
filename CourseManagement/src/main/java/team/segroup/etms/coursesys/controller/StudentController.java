@@ -1,17 +1,21 @@
 package team.segroup.etms.coursesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import team.segroup.etms.batch.BatchRegistryResponse;
 import team.segroup.etms.coursesys.dto.StudentDto;
 import team.segroup.etms.coursesys.service.CourseService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static team.segroup.etms.utils.ControllerUtils.*;
+import static team.segroup.etms.batch.CsvUtils.*;
 
 @RestController
 @RequestMapping("/students")
@@ -49,8 +53,16 @@ public class StudentController {
         @RequestPart("csv") MultipartFile csv,
         @PathVariable("code") String code
     ) {
-        //TODO:implement
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        Stream<StudentDto> studentDtoStream = csvSimpleParse(csv,
+            record -> new StudentDto(
+                record.get("nid"),
+                record.get("name"),
+                0
+            ));
+        Pair<List<String>, List<String>> result =
+            courseService.addStudentBatch(code, studentDtoStream);
+        return defaultBadRequest(result!=null,
+            new BatchRegistryResponse(result.getFirst(), result.getSecond()));
     }
 
     @DeleteMapping("/{code}/{nid}")
@@ -65,8 +77,5 @@ public class StudentController {
     @Autowired
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;
-    }
-
-    private static class BatchRegistryResponse extends HashMap<String, List<String>> {
     }
 }

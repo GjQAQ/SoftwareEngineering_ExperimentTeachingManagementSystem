@@ -56,10 +56,12 @@ public class ExperimentController {
         return defaultBadRequest(experiment != null, experiment);
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<String> delete(@PathVariable("name") String name) {
-        boolean result = experimentService.deleteByName(name);
-        return defaultBadRequest(result, "ok");
+    @DeleteMapping("/{eid}")
+    public ResponseEntity<String> delete(
+        @PathVariable("eid") int eid
+    ) {
+        boolean result = experimentService.deleteByEid(eid);
+        return defaultNotFound(result, "ok");
     }
 
     @Autowired

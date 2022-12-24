@@ -71,6 +71,14 @@ public class CourseController {
         return defaultNotFound(courses.size() > 0, courses);
     }
 
+    @DeleteMapping("/{code}")
+    public ResponseEntity<String> deleteCourse(
+        @PathVariable("code") String courseCode
+    ) {
+        boolean result = courseService.deleteCourse(courseCode);
+        return defaultNotFound(result, "ok");
+    }
+
     @Autowired
     public void setCourseService(CourseService courseService) {
         this.courseService = courseService;

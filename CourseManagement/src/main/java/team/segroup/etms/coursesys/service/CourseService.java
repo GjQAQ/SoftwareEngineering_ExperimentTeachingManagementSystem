@@ -22,6 +22,8 @@ public interface CourseService {
 
     CourseDto findCourseByName(String name);
 
+    boolean deleteCourse(String code);
+
     StudentDto addStudent(String courseCode, StudentDto studentDto);
 
     Pair<List<String>, List<String>> addStudentBatch(String courseCode, Stream<StudentDto> stream);

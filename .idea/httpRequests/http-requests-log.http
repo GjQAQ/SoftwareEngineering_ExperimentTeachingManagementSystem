@@ -1,3 +1,153 @@
+GET http://120.78.65.145:8083/attendances/3
+Token: warrant
+
+<> 2022-12-23T113156.200.json
+
+###
+
+PATCH http://120.78.65.145:8083/assignments/14
+Token: warrant
+Content-Type: application/json
+
+{
+  "asid": 14,
+  "courseCode": "20220000",
+  "description": "test modify1",
+  "endTime": "2022-12-22T20:00:00",
+  "name": "作业4",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-22T052320.200.json
+
+###
+
+POST http://120.78.65.145:8083/actuator/shutdown
+
+<> 2022-12-22T052110.200.json
+
+###
+
+PATCH http://localhost:8083/assignments/14
+Token: warrant
+Content-Type: application/json
+
+{
+  "asid": 14,
+  "courseCode": "20220000",
+  "description": "test modify",
+  "endTime": "2022-12-22T20:00:00",
+  "name": "作业4",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-22T052033.200.json
+
+###
+
+PATCH http://localhost:8083/assignments/14
+Token: warrant
+Content-Type: application/json
+
+{
+  "asid": 14,
+  "courseCode": "20220000",
+  "description": "test modify",
+  "endTime": "2022-12-22T20:00:00",
+  "name": "作业4",
+  "ownerNid": "2000002"
+}
+
+<> 2022-12-22T051900.200.json
+
+###
+
+PATCH http://localhost:8082/assignments/14
+Token: warrant
+Content-Type: application/json
+
+{
+  "asid": 14,
+  "courseCode": "20220000",
+  "description": "test modify",
+  "endTime": "2022-12-22T20:00:00",
+  "name": "作业4",
+  "ownerNid": "2000002"
+}
+
+###
+
+PATCH http://120.78.65.145:8082/experiment
+Content-Type: application/json
+Token: warrant
+
+{
+  "eid": 3,
+  "courseCode": "20220000",
+  "name": "实验3",
+  "description": "测试用例",
+  "ownerNid": "2000002",
+  "startTime": "2022-12-22T15:27:00",
+  "equipments": "..."
+}
+
+<> 2022-12-22T022920.200.json
+
+###
+
+POST http://localhost:8082/experiment
+Content-Type: application/json
+Token: warrant
+
+{
+  "eid": null,
+  "courseCode": "20220000",
+  "name": "实验3",
+  "description": "测试用例",
+  "ownerNid": "2000002",
+  "startTime": "2022-12-22T15:27:00",
+  "equipments": "..."
+}
+
+<> 2022-12-22T022833.200.json
+
+###
+
+PATCH http://localhost:8082/experiment
+Content-Type: application/json
+Token: warrant
+
+{
+  "eid": 1,
+  "courseCode": "20220000",
+  "name": "实验1",
+  "description": "测试用例",
+  "ownerNid": "2000002",
+  "startTime": "2022-12-22T14:27:00",
+  "equipments": "..."
+}
+
+<> 2022-12-22T022803.200.json
+
+###
+
+PATCH http://localhost:8082/experiment
+Content-Type: application/json
+Token: warrant
+
+{
+  "eid": 1,
+  "courseCode": "20220000",
+  "name": "实验1",
+  "description": "测试用例",
+  "startTime": "2022-12-22T14:27:00",
+  "equipments": "..."
+}
+
+<> 2022-12-22T022732.500.json
+
+###
+
 POST http://120.78.65.145:8083/actuator/shutdown
 
 ###
@@ -290,74 +440,6 @@ Token: warrant
 ###
 
 POST http://120.78.65.145:8082/actuator/shutdown
-
-###
-
-GET http://localhost:8082/experiment?course=20220000
-Token: warrant
-
-<> 2022-12-18T122622.200.json
-
-###
-
-GET http://localhost:8083/attendances?courseCode=20220000
-Token: warrant
-
-<> 2022-12-18T122214.200.json
-
-###
-
-GET http://localhost:8083/attendances?courseCode=20220000
-Token: warrant
-
-<> 2022-12-18T122039.500.json
-
-###
-
-GET http://localhost:8083/attendances?courseCode=20220000
-Token: warrant
-
-<> 2022-12-18T121712.200.json
-
-###
-
-GET http://120.78.65.145:8084/files/639ddd68a209fe62526d9e1a/meta
-Token: warrant
-
-<> 2022-12-18T120739.200.json
-
-###
-
-GET http://120.78.65.145:8084/files/639ddd68a209fe62526d9e1a/meta
-Token: warrant
-
-<> 2022-12-18T120729.200.json
-
-###
-
-POST http://120.78.65.145:8084/actuator/shutdown
-
-<> 2022-12-18T120522.200.json
-
-###
-
-GET http://120.78.65.145:8084/files/639ddd68a209fe62526d9e1a/meta
-Token: warrant
-
-<> 2022-12-18T120405.200.json
-
-###
-
-GET http://120.78.65.145:8084/files/639ddd68a209fe62526d9e1a/meta
-Token: warrant
-
-<> 2022-12-18T113517.200.json
-
-###
-
-POST http://120.78.65.145:8084/actuator/shutdown
-
-<> 2022-12-18T113439.200.json
 
 ###
 

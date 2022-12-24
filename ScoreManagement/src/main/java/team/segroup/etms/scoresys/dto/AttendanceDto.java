@@ -34,7 +34,7 @@ public class AttendanceDto {
 
     public Attendance toAttendance() {
         return new Attendance(
-            null,
+            atid,
             courseCode,
             name,
             Timestamp.valueOf(startTime),

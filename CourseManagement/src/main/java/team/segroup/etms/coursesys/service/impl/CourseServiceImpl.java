@@ -101,6 +101,16 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public boolean deleteCourse(String code) {
+        Optional<Course> courseOpt = courseRepository.findByCode(code);
+        if (!courseOpt.isPresent()) {
+            return false;
+        }
+        courseRepository.deleteById(courseOpt.get().getCid());
+        return true;
+    }
+
+    @Override
     public StudentDto addStudent(String courseCode, StudentDto studentDto) {
         if (studentRepository.findByNidAndCourseCode(
             studentDto.getNid(), courseCode

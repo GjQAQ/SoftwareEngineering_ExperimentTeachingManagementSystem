@@ -13,8 +13,6 @@ public interface MaterialService {
 
     InputStream download(String id);
 
-    List<MaterialMetaBase> listAll();
-
     MaterialMetaBase modify(MaterialMetaBase meta, InputStream inputStream);
 
     boolean delete(String id);

@@ -34,7 +34,7 @@ public class AssignmentDto {
 
     public Assignment toAssignment() {
         return new Assignment(
-            null,
+            asid,
             courseCode,
             name,
             description,

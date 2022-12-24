@@ -68,12 +68,6 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<MaterialMetaBase> listAll() {
-        //TODO:implement
-        throw new NotImplementedException();
-    }
-
-    @Override
     public MaterialMetaBase modify(MaterialMetaBase meta, InputStream inputStream) {
         GridFSFile gridFSFile = gridFsTemplate.findOne(Query.query(
             Criteria.where("_id").is(meta.getId())
