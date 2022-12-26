@@ -6,14 +6,14 @@ import team.segroup.etms.filesys.meta.MaterialMetaBase;
 import java.io.InputStream;
 import java.util.List;
 
-public interface MaterialService {
-    MaterialMetaBase upload(MaterialMetaBase meta, InputStream inputStream);
+public interface MaterialService<M extends MaterialMetaBase> {
+    M upload(M meta, InputStream inputStream);
 
-    MaterialMetaBase retrieveMeta(String id);
+    M retrieveMeta(String id);
 
     InputStream download(String id);
 
-    MaterialMetaBase modify(MaterialMetaBase meta, InputStream inputStream);
+    M modify(M meta, InputStream inputStream);
 
     boolean delete(String id);
 }

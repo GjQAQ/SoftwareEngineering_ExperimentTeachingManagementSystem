@@ -4,6 +4,6 @@ import team.segroup.etms.filesys.meta.AssignmentFileMeta;
 
 import java.util.List;
 
-public interface AssignmentFileService extends MaterialService{
+public interface AssignmentFileService extends MaterialService<AssignmentFileMeta>{
     List<AssignmentFileMeta> findByAsid(int asid);
 }
