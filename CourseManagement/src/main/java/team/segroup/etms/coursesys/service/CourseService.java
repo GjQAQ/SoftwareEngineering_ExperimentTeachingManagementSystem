@@ -1,5 +1,6 @@
 package team.segroup.etms.coursesys.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import team.segroup.etms.coursesys.dto.CourseDto;
@@ -21,6 +22,8 @@ public interface CourseService {
     CourseDto findCourseByCode(String code);
 
     CourseDto findCourseByName(String name);
+
+    Page<CourseDto> listCoursesInPage(int pageNum, int pageSize);
 
     boolean deleteCourse(String code);
 

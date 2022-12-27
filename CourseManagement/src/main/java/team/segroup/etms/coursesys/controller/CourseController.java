@@ -1,6 +1,7 @@
 package team.segroup.etms.coursesys.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,15 @@ public class CourseController {
     public ResponseEntity<CourseDto> modifyCourse(@RequestBody CourseDto courseDto) {
         CourseDto course = courseService.modifyCourse(courseDto);
         return defaultBadRequest(course != null, course);
+    }
+
+    @GetMapping(params = {"page", "size"})
+    public ResponseEntity<Page<CourseDto>> listCoursesInPage(
+        @RequestParam("page") int pageNum,
+        @RequestParam("size") int pageSize
+    ) {
+        Page<CourseDto> courses = courseService.listCoursesInPage(pageNum, pageSize);
+        return defaultNotFound(courses.getTotalElements() > 0, courses);
     }
 
     @GetMapping("/{code}")
