@@ -2,14 +2,9 @@ server:
   port: 8084
 
 spring:
-#  datasource:
-#    username: root
-#    password: HCC.mysql.pw#0
-#    url: jdbc:mysql://120.78.65.145:3306/score_sys
-#    driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     mongodb:
-      uri: mongodb://root:iamroot@120.78.65.145:27017/
+      uri: mongodb://root:iamroot@resource.delimiter@@mongo.server.address@:27017/
       database: etms
   servlet:
     multipart:

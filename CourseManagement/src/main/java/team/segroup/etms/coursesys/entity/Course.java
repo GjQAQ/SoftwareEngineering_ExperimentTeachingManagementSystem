@@ -29,6 +29,8 @@ public class Course {
 
     private String description;
 
+    private Integer attendanceWeight;
+
     @AllArgsConstructor
     public enum Status {
         NOT_STARTED, GOING_ON, TERMINATED

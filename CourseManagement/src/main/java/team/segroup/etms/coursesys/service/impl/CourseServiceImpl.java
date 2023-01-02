@@ -69,7 +69,14 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseDto modifyCourse(CourseDto courseDto) {
         // TODO:check&只修改部分字段？
-        return new CourseDto(courseRepository.save(courseDto.toCourse()));
+        Course courseEntity = courseDto.toCourse();
+        Optional<Course> courseOpt = courseRepository.findByCode(courseDto.getCode());
+        if (!courseOpt.isPresent()) {
+            return null;
+        }
+
+        courseEntity.setCid(courseOpt.get().getCid());
+        return new CourseDto(courseRepository.save(courseEntity));
     }
 
     @Override

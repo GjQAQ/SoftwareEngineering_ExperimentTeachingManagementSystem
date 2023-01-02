@@ -19,24 +19,25 @@ public class Authenticator implements HandlerInterceptor {
         HttpServletResponse response,
         Object handler
     ) throws Exception {
-        if("false".equals(request.getParameter("warrant"))){
-            return true;
-        }
-
-        String token = request.getHeader("Token");
-        if (token == null) {
-            response.setStatus(401);
-            return false;
-        } else if (WARRANT.equals(token)) {
-            return true;
-        }
-
-        if (remoteValidate(token)) {
-            return true;
-        } else {
-            response.setStatus(403);
-            return false;
-        }
+        return true;
+//        if("false".equals(request.getParameter("warrant"))){
+//            return true;
+//        }
+//
+//        String token = request.getHeader("Token");
+//        if (token == null) {
+//            response.setStatus(401);
+//            return false;
+//        } else if (WARRANT.equals(token)) {
+//            return true;
+//        }
+//
+//        if (remoteValidate(token)) {
+//            return true;
+//        } else {
+//            response.setStatus(403);
+//            return false;
+//        }
     }
 
     public boolean remoteValidate(String token) {

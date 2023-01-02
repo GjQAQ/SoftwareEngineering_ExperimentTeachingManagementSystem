@@ -5,13 +5,13 @@ spring:
   datasource:
     username: root
     password: HCC.mysql.pw#0
-    url: jdbc:mysql://120.78.65.145:3306/course_sys
+    url: jdbc:mysql://@mysql.server.address@:3306/course_sys
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type.discriptor.sql.BasicBinder: trace
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type.discriptor.sql.BasicBinder: trace
 
 management:
   endpoint:

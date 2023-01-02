@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: HCC.mysql.pw#0
-    url: jdbc:mysql://120.78.65.145:3306/exp_sys
+    url: jdbc:mysql://@mysql.server.address@:3306/exp_sys
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:

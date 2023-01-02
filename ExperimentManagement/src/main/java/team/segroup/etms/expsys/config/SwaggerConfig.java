@@ -32,7 +32,7 @@ public class SwaggerConfig {
             .version("0.1")
             .contact(new Contact(
                 "Group One",
-                "https://120.78.65.145",
+                "https://8.130.38.11",
                 "group@tongji.edu.cn"))
             .build();
     }

@@ -1,3 +1,126 @@
+POST http://8.130.38.11:8084/actuator/shutdown
+
+<> 2023-01-02T125034.200.json
+
+###
+
+POST http://8.130.38.11:8083/actuator/shutdown
+
+<> 2023-01-02T124707.200.json
+
+###
+
+PUT http://8.130.38.11:8081/courses
+Content-Type: application/json
+
+{
+  "attendanceWeight": "25",
+  "code": "20002222",
+  "description": "none",
+  "endTime": "2023-01-28",
+  "name": "test",
+  "startTime": "2023-01-01",
+  "status": "GOING_ON"
+}
+
+<> 2023-01-01T013100.200.json
+
+###
+
+PUT http://8.130.38.11:8081/courses
+Content-Type: application/json
+
+{
+  "attendanceWeight": 30,
+  "code": "20002222",
+  "description": "none",
+  "endTime": "2023-01-28",
+  "name": "test",
+  "startTime": "2023-01-01",
+  "status": "GOING_ON"
+}
+
+<> 2023-01-01T012933.200.json
+
+###
+
+PUT http://8.130.38.11:8081/courses
+Content-Type: application/json
+
+{
+  "attendanceWeight": 30,
+  "code": "20000222",
+  "description": "none",
+  "endTime": "2023-01-28",
+  "name": "test",
+  "startTime": "2023-01-01",
+  "status": "GOING_ON"
+}
+
+###
+
+POST http://8.130.38.11:8081/actuator/shutdown
+
+<> 2023-01-01T012017.200.json
+
+###
+
+POST http://8.130.38.11:8080/actuator/shutdown
+
+<> 2023-01-01T105937.200.json
+
+###
+
+POST http://8.130.38.11:8081/actuator/shutdown
+
+<> 2023-01-01T105854.200.json
+
+###
+
+POST http://8.130.38.11:8081/actuator/shutdown
+
+<> 2022-12-31T095843.500.json
+
+###
+
+POST http://8.130.38.11:8083/actuator/shutdown
+
+###
+
+POST http://8.130.38.11:8080/actuator/shutdown
+
+###
+
+POST http://8.130.38.11:8080/actuator/shutdown
+
+<> 2022-12-30T022631.200.json
+
+###
+
+POST http://8.130.38.11:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000001&password=48181acd22b3edaebc8a447868a7df7ce629920a
+
+<> 2022-12-29T043842.200.json
+
+###
+
+POST http://8.130.38.11:8080/actuator/shutdown
+
+<> 2022-12-29T043642.200.json
+
+###
+
+POST http://8.130.38.11:8080/token
+Content-Type: application/x-www-form-urlencoded
+
+nid=2000001&password=48181acd22b3edaebc8a447868a7df7ce629920a
+
+<> 2022-12-29T015346.200.json
+
+###
+
 GET http://120.78.65.145:8081/courses?page=0&size=10
 Token: warrant
 
@@ -308,123 +431,6 @@ Token: warrant
 ###
 
 POST http://120.78.65.145:8083/actuator/shutdown
-
-###
-
-PATCH http://localhost:8083/attendances/12/2000006?checkTime=1671689103000
-Token: warrant
-
-<> 2022-12-22T020526.200.json
-
-###
-
-PATCH http://localhost:8083/attendances/12/2000005?checkTime=1671689103000
-Token: warrant
-
-<> 2022-12-22T020518.200.json
-
-###
-
-PATCH http://localhost:8083/attendances/12/2000005?checkTime=1671688750000
-Token: warrant
-
-<> 2022-12-22T020334.200.json
-
-###
-
-PATCH http://localhost:8083/attendances/12/2000001?checkTime=1671688750000
-Token: warrant
-
-<> 2022-12-22T015924.200.json
-
-###
-
-POST http://localhost:8083/attendances
-Content-Type: application/json
-Token: warrant
-
-{
-  "atid": null,
-  "courseCode": "20220000",
-  "name": "test",
-  "startTime": "2022-12-22T13:30:00",
-  "endTime": "2022-12-22T14:00:00",
-  "ownerNid": "2000002"
-}
-
-<> 2022-12-22T015736.200.json
-
-###
-
-POST http://120.78.65.145:8083/assignments?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002&description=test
-Content-Type: application/json
-Token: warrant
-
-["2000001"]
-
-<> 2022-12-22T012601.200.json
-
-###
-
-POST http://120.78.65.145:8083/attendances?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002&description=test
-Content-Type: application/json
-Token: warrant
-
-["2000001"]
-
-<> 2022-12-22T012548.400.json
-
-###
-
-POST http://120.78.65.145:8083/attendances?courseCode=20220000&name=test&end=2022-12-22T15:30:00&owner=2000002
-Content-Type: application/json
-Token: warrant
-
-["2000001"]
-
-<> 2022-12-22T012528.400.json
-
-###
-
-POST http://120.78.65.145:8083/actuator/shutdown
-
-<> 2022-12-21T094255.200.json
-
-###
-
-GET http://120.78.65.145:8082/assignments/1
-Token: warrant
-
-###
-
-GET http://120.78.65.145:8083:8083/attendances/1
-Token: warrant
-
-<> 2022-12-20T074457.200.json
-
-###
-
-GET http://120.78.65.145:8083:8083/assignments/1
-Token: warrant
-
-<> 2022-12-20T074446.200.json
-
-###
-
-GET http://120.78.65.145:8083:8083/assignments/1
-Token: warrant
-
-<> 2022-12-20T074151.404.json
-
-###
-
-POST http://120.78.65.145:8083/actuator/shutdown
-
-###
-
-POST http://120.78.65.145:8083/actuator/shutdown
-
-<> 2022-12-20T073702.200.json
 
 ###
 

@@ -23,6 +23,7 @@ public class CourseDto {
     private LocalDate endTime;
     private Course.Status status;
     private String description;
+    private Integer attendanceWeight;
 
     public CourseDto(Course course) {
         this.name = course.getCname();
@@ -31,6 +32,7 @@ public class CourseDto {
         this.endTime = course.getEndTime().toLocalDate();
         this.status = course.getStatus();
         this.description=course.getDescription();
+        attendanceWeight=course.getAttendanceWeight();
     }
 
     public Course toCourse() {
@@ -41,7 +43,8 @@ public class CourseDto {
             Date.valueOf(getStartTime()),
             Date.valueOf(getEndTime()),
             getStatus(),
-            getDescription()
+            getDescription(),
+            getAttendanceWeight()
         );
     }
 }

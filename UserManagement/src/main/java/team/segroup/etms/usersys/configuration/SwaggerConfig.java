@@ -1,5 +1,6 @@
 package team.segroup.etms.usersys.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -16,24 +17,27 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableOpenApi
 @EnableWebMvc
 public class SwaggerConfig {
+    @Value("8.130.38.11")
+    private String address;
+
     @Bean
-    public Docket createApi(){
+    public Docket createApi() {
         return new Docket(DocumentationType.OAS_30)
-                .apiInfo(addApiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("team.segroup.etms.usersys"))
-                .build();
+            .apiInfo(addApiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("team.segroup.etms.usersys"))
+            .build();
     }
 
-    private ApiInfo addApiInfo(){
+    private ApiInfo addApiInfo() {
         return new ApiInfoBuilder()
-                .title("User Management Module")
-                .description("API Doc")
-                .version("0.1")
-                .contact(new Contact(
-                        "Group One",
-                        "https://120.78.65.145",
-                        "group@tongji.edu.cn"))
-                .build();
+            .title("User Management Module")
+            .description("API Doc")
+            .version("0.1")
+            .contact(new Contact(
+                "Group One",
+                "https://" + address,
+                "group@tongji.edu.cn"))
+            .build();
     }
 }
